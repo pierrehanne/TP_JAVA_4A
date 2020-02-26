@@ -6,14 +6,14 @@ public enum Direction {
 
     public Direction left() {
         int leftOrdinal = ordinal() - 1;
-
-        final Direction newDirection;
+        return leftOrdinal == -1 ? WEST  : Direction.values()[leftOrdinal];
+        /*final Direction newDirection;
         if(leftOrdinal == -1) {
             newDirection = WEST;
         } else {
             newDirection = Direction.values()[leftOrdinal];
         }
-        return newDirection;
+        return newDirection;*/
     }
 
     public Direction right() {
