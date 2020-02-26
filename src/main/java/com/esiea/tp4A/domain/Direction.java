@@ -15,4 +15,17 @@ public enum Direction {
         }
         return newDirection;
     }
+
+    public Direction right() {
+        int rightOrdinal = ordinal() + 1;
+
+        final Direction newDirection;
+        if(rightOrdinal == 4) {
+            newDirection = NORTH;
+        } else {
+            newDirection = Direction.values()[rightOrdinal];
+        }
+        return newDirection;
+    }
+
 }
