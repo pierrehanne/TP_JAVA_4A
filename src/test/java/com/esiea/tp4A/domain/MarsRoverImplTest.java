@@ -11,4 +11,11 @@ class MarsRoverImplTest {
 
         Assertions.assertThat(position).isEqualTo(Position.of(0, 0, Direction.NORTH));
     }
+
+    @Test
+    void right_direction(){
+        MarsRover marsRover = new MarsRoverImpl(0, 0, Direction.NORTH);
+        Position newPosition = marsRover.move("R");
+        Assertions.assertThat(newPosition).isEqualTo(Position.of(0, 0, Direction.EAST));
+    }
 }
