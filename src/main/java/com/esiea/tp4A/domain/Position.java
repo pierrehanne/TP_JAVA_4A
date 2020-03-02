@@ -63,5 +63,4 @@ public interface Position {
                 return Objects.hash(x, y, direction);
             }
         }
-    }
-
+}
