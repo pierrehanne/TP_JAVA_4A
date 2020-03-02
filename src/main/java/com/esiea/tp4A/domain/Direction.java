@@ -27,5 +27,17 @@ public enum Direction {
         }
         return newDirection;
     }
+    public Direction forward() {
+        int forwardOrdinal = ordinal() + 1;
+
+        final Direction newDirection;
+        if(forwardOrdinal == 1) {
+            newDirection = NORTH;
+        } else {
+            newDirection = Direction.values()[forwardOrdinal];
+        }
+        return newDirection;
+    }
+
 
 }
