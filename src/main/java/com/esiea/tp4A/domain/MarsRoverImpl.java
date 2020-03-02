@@ -19,6 +19,9 @@ public class MarsRoverImpl implements MarsRover {
         if(command.equals("F")) {
             currentPosition = Position.of(currentPosition.getX(), currentPosition.getY(), currentPosition.getDirection().forward());
         }
+        if(command.equals("S")) {
+            currentPosition = Position.of(currentPosition.getX(), currentPosition.getY(), currentPosition.getDirection().south());
+        }
         return currentPosition;
     }
 
