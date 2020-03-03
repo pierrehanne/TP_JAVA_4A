@@ -31,19 +31,19 @@ class MarsRoverImplTest {
     }
 
     @Test
-    void south_direction()
+    void backward_direction()
     {
-        MarsRover marsRover = new MarsRoverImpl(0,-1,Direction.NORTH);
-        Position position = marsRover.move("S");
+        MarsRover marsRover = new MarsRoverImpl(0,0,Direction.NORTH);
+        Position position = marsRover.move("B");
         Assertions.assertThat(position).isEqualTo(Position.of(0,-1,Direction.NORTH));
     }
 
     @Test
     void forward_direction()
     {
-        MarsRover marsRover = new MarsRoverImpl(0,+1,Direction.NORTH);
+        MarsRover marsRover = new MarsRoverImpl(0,0,Direction.NORTH);
         Position position = marsRover.move("F");
-        Assertions.assertThat(position).isEqualTo(Position.of(0,+1,Direction.NORTH));
+        Assertions.assertThat(position).isEqualTo(Position.of(0,1,Direction.NORTH));
     }
 
 
