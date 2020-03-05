@@ -12,7 +12,11 @@ public interface Position {
             return new FixedPosition(x, y, direction);
         }
 
-        final class FixedPosition implements Position {
+    Position forward1();
+
+    Position backward1();
+
+    final class FixedPosition implements Position {
 
             private final int x;
             private final int y;
@@ -26,17 +30,57 @@ public interface Position {
 
             @Override
             public int getX() {
+                if (this.x == 50 && this.direction == Direction.WEST)
+                    return -50;
+                if (this.x == -49 && this.direction == Direction.EAST)
+                    return 51;
                 return x;
             }
 
             @Override
             public int getY() {
+                if (this.y == 50 && this.direction == Direction.NORTH)
+                    return -50;
+                if (this.y == -49 && this.direction == Direction.SOUTH)
+                    return 51;
                 return y;
             }
 
             @Override
             public Direction getDirection() {
                 return direction;
+            }
+
+            public Position forward1() {
+                if(this.getDirection() == Direction.NORTH)
+                    return Position.of(this.getX(), this.getY() + 1, this.getDirection());
+                if(this.getDirection() == Direction.SOUTH)
+                    return Position.of(this.getX(), this.getY() - 1, this.getDirection());
+                return forward2();
+            }
+
+            public Position forward2() {
+                if(this.getDirection() == Direction.WEST)
+                    return Position.of(this.getX() + 1, this.getY(), this.getDirection());
+                if(this.getDirection() == Direction.EAST)
+                    return Position.of(this.getX() - 1, this.getY(), this.getDirection());
+                return Position.of(this.getX(), this.getY(), this.getDirection());
+            }
+
+            public Position backward1() {
+                if(this.getDirection() == Direction.NORTH)
+                    return Position.of(this.getX(), this.getY() - 1, this.getDirection());
+                if(this.getDirection() == Direction.SOUTH)
+                    return Position.of(this.getX(), this.getY() + 1, this.getDirection());
+                return backward2();
+            }
+
+            public Position backward2() {
+                if(this.getDirection() == Direction.WEST)
+                    return Position.of(this.getX() - 1, this.getY(), this.getDirection());
+                if(this.getDirection() == Direction.EAST)
+                    return Position.of(this.getX() + 1, this.getY(), this.getDirection());
+                return Position.of(this.getX(), this.getY(), this.getDirection());
             }
 
             @Override
@@ -62,5 +106,6 @@ public interface Position {
             public int hashCode() {
                 return Objects.hash(x, y, direction);
             }
+
         }
 }

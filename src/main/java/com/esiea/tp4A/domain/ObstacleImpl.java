@@ -1,5 +1,11 @@
 package com.esiea.tp4A.domain;
 
-public class ObstacleImpl {
+import java.util.Set;
 
+public class ObstacleImpl implements PlanetMap {
+
+    @Override
+    public Set<Position> obstaclePositions() {
+        return null;
+    }
 }
