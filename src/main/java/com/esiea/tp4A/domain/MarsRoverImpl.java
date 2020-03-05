@@ -11,47 +11,10 @@ public class MarsRoverImpl implements MarsRover {
 
     @Override
     public Position move (String command){
-
-        if ("L".equals(command)) {
-            currentPosition = Position.of(currentPosition.getX(), currentPosition.getY(), currentPosition.getDirection().left());
-        }
-        if(command.equals("R")){
-            currentPosition = Position.of(currentPosition.getX(), currentPosition.getY(), currentPosition.getDirection().right());
-        }
-        if(command.equals("F")) {
-            currentDirection = currentPosition.getDirection();
-            switch (currentDirection) {
-                case NORTH:
-                    currentPosition = Position.of(currentPosition.getX(), currentPosition.getY() + 1, currentPosition.getDirection());
-                    break;
-                case WEST:
-                    currentPosition = Position.of(currentPosition.getX() - 1, currentPosition.getY(), currentPosition.getDirection());
-                    break;
-                case SOUTH:
-                    currentPosition = Position.of(currentPosition.getX(), currentPosition.getY() - 1, currentPosition.getDirection());
-                    break;
-                case EAST:
-                    currentPosition = Position.of(currentPosition.getX() + 1, currentPosition.getY(), currentPosition.getDirection());
-                    break;
-            }
-        }
-        if(command.equals("B")) {
-            currentDirection = currentPosition.getDirection();
-            switch (currentDirection) {
-                case NORTH:
-                    currentPosition = Position.of(currentPosition.getX(), currentPosition.getY() - 1, currentPosition.getDirection());
-                    break;
-                case WEST:
-                    currentPosition = Position.of(currentPosition.getX() + 1, currentPosition.getY(), currentPosition.getDirection());
-                    break;
-                case SOUTH:
-                    currentPosition = Position.of(currentPosition.getX(), currentPosition.getY() + 1, currentPosition.getDirection());
-                    break;
-                case EAST:
-                    currentPosition = Position.of(currentPosition.getX() - 1, currentPosition.getY(), currentPosition.getDirection());
-                    break;
-            }
-        }
+        if ("L".equals(command)) currentPosition = Position.of(currentPosition.getX(), currentPosition.getY(), currentPosition.getDirection().left());
+        if(command.equals("R")) currentPosition = Position.of(currentPosition.getX(), currentPosition.getY(), currentPosition.getDirection().right());
+        if(command.equals("F")) currentPosition = currentPosition.forward1();
+        if(command.equals("B")) currentPosition = currentPosition.backward1();
         return currentPosition;
     }
 
