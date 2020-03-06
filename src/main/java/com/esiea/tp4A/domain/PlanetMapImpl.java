@@ -30,8 +30,28 @@ public class PlanetMapImpl implements PlanetMap {
         }
     }
 
+    //renvoie le contenu d'une case de la map
+    //prendre en compte le cas où on demande une case en dehors du tableau
+    //map circulaire, revenir de l'autre côté en transformant les coordonnées entrées
+    //-50 => 50
+    //-151 => -1
     public int getInfo(int x, int y) {
+        //********** rechercher la bonne formule **********//
+        //if(x<-49){
+            //int new_x = 50-(-x-49); //? pistes de recherche
+            //int new_x = -(50-x%50); //? modulo ?
+        //}
         return map[y+49][x+49];
+    }
+
+    public void displayMap(){
+        int x, y;
+        for(y=50;y>=-49;y--){
+            for(x=-49;x<=50;x++){
+                System.out.print(getInfo(x, y));
+            }
+            System.out.println("");
+        }
     }
 
     @Override
