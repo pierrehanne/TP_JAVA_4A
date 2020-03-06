@@ -91,4 +91,34 @@ class MarsRoverImplTest {
         Assertions.assertThat(position).isEqualTo(Position.of(50,0,Direction.EAST));
     }
 
+    @Test
+    void obstacleDetectionForward(){
+        MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH);
+        Position oldPosition = marsRover.initPosNextToObstacle("NORTH");
+        marsRover.move("F");
+        Assertions.assertThat(marsRover.getCurrentPosition()).isEqualTo(oldPosition);
+    }
+
+    @Test
+    void obstacleDetectionBackward(){
+        MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH);
+        Position oldPosition = marsRover.initPosNextToObstacle("SOUTH");
+        marsRover.move("B");
+        Assertions.assertThat(marsRover.getCurrentPosition()).isEqualTo(oldPosition);
+    }
+
+    @Test
+    void initPositionNextToObstacleNorth(){
+        MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH);
+        Position position = marsRover.initPosNextToObstacle("NORTH");
+        Assertions.assertThat(marsRover.getPlanetMap().getInfo(position.getX(), position.getY()+1)==1);
+    }
+
+    @Test
+    void initPositionNextToObstacleSouth(){
+        MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH);
+        Position position = marsRover.initPosNextToObstacle("SOUTH");
+        Assertions.assertThat(marsRover.getPlanetMap().getInfo(position.getX(), position.getY()-1)==1);
+    }
+
 }
