@@ -30,6 +30,15 @@ public class PlanetMapImpl implements PlanetMap {
         }
     }
 
+    //ajoute la valeur passée en paramètres à la case aux coordonnées spécifiées
+    public void setMapSquare(int x, int y, int value){
+        if(x==51) map[y+49][0] = value;
+        if(y==51) map[0][x+49] = value;
+        if(x==-50) map[y+49][99] = value;
+        if(y==-50) map[99][x+49] = value;
+        map[y+49][x+49] = value;
+    }
+
     //renvoie le contenu d'une case de la map
     //prendre en compte le cas où on demande une case en dehors du tableau
     //map circulaire, revenir de l'autre côté en transformant les coordonnées entrées

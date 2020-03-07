@@ -80,4 +80,15 @@ public class MarsRoverImpl implements MarsRover {
         return false;
     }
 
+    //génère un nouveau missile dans la direction du Rover
+    public LaserBeamImpl Shoot(PlanetMapImpl planetMap){
+        int laserBeamX = 0, laserBeamY = 0;
+        if(currentPosition.getDirection() == Direction.SOUTH){ laserBeamX = currentPosition.getX(); laserBeamY = currentPosition.getY()-1;}
+        if(currentPosition.getDirection() == Direction.NORTH){ laserBeamX = currentPosition.getX(); laserBeamY = currentPosition.getY()+1;}
+        if(currentPosition.getDirection() == Direction.WEST){ laserBeamX = currentPosition.getX()-1; laserBeamY = currentPosition.getY();}
+        if(currentPosition.getDirection() == Direction.EAST){ laserBeamX = currentPosition.getX()+1; laserBeamY = currentPosition.getY();}
+        LaserBeamImpl laserBeam = new LaserBeamImpl(laserBeamX, laserBeamY, currentPosition.getDirection());
+        return laserBeam;
+    }
+
 }
