@@ -21,7 +21,7 @@ public class PlanetMapImpl implements PlanetMap {
         while (obstaclesLeft > 0) {
             for (int i = 0; i < 100; i++) {
                 for (int j = 0; j < 100; j++) {
-                    if ((int)(Math.random()*10) == 0 && obstaclesLeft > 0 && map[i][j] == 0) {
+                    if ((int)(Math.random()*100) == 0 && obstaclesLeft > 0 && map[i][j] == 0) {
                         map[i][j] = 1;
                         obstaclesLeft--;
                     }
@@ -41,12 +41,16 @@ public class PlanetMapImpl implements PlanetMap {
             //int new_x = 50-(-x-49); //? pistes de recherche
             //int new_x = -(50-x%50); //? modulo ?
         //}
+        if(x==51) return map[y+49][0];
+        if(y==51) return map[0][x+49];
+        if(x==-50)  return map[y+49][99];
+        if(y==-50)  return map[99][x+49];
         return map[y+49][x+49];
     }
 
     public void displayMap(){
         int x, y;
-        for(y=50;y>=-49;y--){
+        for(y=-49;y<=50;y++){
             for(x=-49;x<=50;x++){
                 System.out.print(getInfo(x, y));
             }
@@ -65,6 +69,8 @@ public class PlanetMapImpl implements PlanetMap {
                 }
             }
         }
+        for(Position position:positions)
+            System.out.println("X : "+position.getX()+" | Y : " + position.getY());
         return positions;
     }
 }
