@@ -32,6 +32,7 @@ class PlanetMapImplTest {
         planetMap.generateObstacles();
         Set<Position> positions;
         positions = planetMap.obstaclePositions();
+        planetMap.displayMap();
         Assertions.assertThat(positions.size()).isEqualTo(150);
     }
 

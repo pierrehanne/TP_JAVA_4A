@@ -13,7 +13,7 @@ public interface MarsRover {
         return this;
     }
 
-    default Position move(String command) {
+    default Position move(String command, PlanetMapImpl planetMap) {
         return Position.of(0, 0, Direction.NORTH);
     }
 }
