@@ -3,6 +3,7 @@ package com.esiea.tp4A.domain;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,5 +46,32 @@ class PlanetMapImplTest {
         for(Position pos:positions) {
             Assertions.assertThat(planetMap.getInfo(pos.getX(), pos.getY())).isEqualTo(1);
         }
+    }
+
+    @Test
+    void getInfo() {
+        PlanetMapImpl planetMap = new PlanetMapImpl();
+        int info = planetMap.getInfo(0,0);
+        Assertions.assertThat(info).isEqualTo(0);
+    }
+
+    @Test
+    void setMapSquare() {
+        PlanetMapImpl planetMap = new PlanetMapImpl();
+        planetMap.setMapSquare(0,0,1);
+        Assertions.assertThat(planetMap.getInfo(0,0)).isEqualTo(1);
+    }
+
+    @Test
+    void getMap() {
+        PlanetMapImpl planetMap = new PlanetMapImpl();
+        int [][] map = planetMap.getMap();
+        int [][] mapTest = new int[100][100];
+        for(int i = 0; i < 100; i++) {
+            for(int j = 0; j < 100; j++) {
+                mapTest[i][j] = 0;
+            }
+        }
+        Assertions.assertThat(map).isEqualTo(mapTest);
     }
 }
