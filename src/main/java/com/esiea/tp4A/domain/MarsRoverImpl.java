@@ -50,22 +50,13 @@ public class MarsRoverImpl implements MarsRover {
     //Positionnement du rover à côté d'un obstacle dans le cadre des tests, possibilité de préciser la position de l'obstacle par rapport à celle du rover
     //(obstacle devant ou derrière le Rover)
     public Position initPosNextToObstacle(String obstaclePosition, PlanetMapImpl planetMap){
-        Set<Position> positions = planetMap.obstaclePositions();
-        boolean posFound = false;
-        planetMap.displayMap();
+        Set<Position> positions = planetMap.obstaclePositions(); boolean posFound = false; planetMap.displayMap();
         for(Position pos:positions) {
             //System.out.println(pos.getX()+""+pos.getY());
             //System.out.println(planetMap.getInfo(pos.getX(), pos.getY()));
-            if(!posFound && obstaclePosition.equals("NORTH") && planetMap.getInfo(pos.getX(), pos.getY()-1) == 0){
-                currentPosition = Position.of(pos.getX(), pos.getY()-1, Direction.NORTH);
-                posFound = true;
-            }
-            if(!posFound && obstaclePosition.equals("SOUTH") && planetMap.getInfo(pos.getX(), pos.getY()+1) == 0){
-                currentPosition = Position.of(pos.getX(), pos.getY()+1, Direction.NORTH);
-                posFound = true;
-            }
-        }
-        System.out.println("Position choisie :" + currentPosition.getX() +" "+ currentPosition.getY());
+            if(!posFound && obstaclePosition.equals("NORTH") && planetMap.getInfo(pos.getX(), pos.getY()-1) == 0){ currentPosition = Position.of(pos.getX(), pos.getY()-1, Direction.NORTH); posFound = true; }
+            if(!posFound && obstaclePosition.equals("SOUTH") && planetMap.getInfo(pos.getX(), pos.getY()+1) == 0){ currentPosition = Position.of(pos.getX(), pos.getY()+1, Direction.NORTH); posFound = true; }
+        } System.out.println("Position choisie :" + currentPosition.getX() +" "+ currentPosition.getY());
         return currentPosition;
     }
 

@@ -1,12 +1,11 @@
 package com.esiea.tp4A.domain;
 
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 public class PlanetMapImpl implements PlanetMap {
 
-    private int [][] map;
+    private final int [][] map;
 
     public PlanetMapImpl() {
         this.map = new int[100][100];
@@ -21,10 +20,7 @@ public class PlanetMapImpl implements PlanetMap {
         while (obstaclesLeft > 0) {
             for (int i = 0; i < 100; i++) {
                 for (int j = 0; j < 100; j++) {
-                    if ((int)(Math.random()*100) == 0 && obstaclesLeft > 0 && map[i][j] == 0) {
-                        map[i][j] = 1;
-                        obstaclesLeft--;
-                    }
+                    if ((int)(Math.random()*100) == 0 && obstaclesLeft > 0 && map[i][j] == 0) map[i][j] = 1;obstaclesLeft--;
                 }
             }
         }
@@ -62,24 +58,18 @@ public class PlanetMapImpl implements PlanetMap {
         for(y=-49;y<=50;y++){
             for(x=-49;x<=50;x++){
                 System.out.print(getInfo(x, y));
-            }
-            System.out.println("");
+            } System.out.println();
         }
     }
 
     @Override
     public Set<Position> obstaclePositions() {
-        Set<Position> positions = new HashSet<Position>();
-        for(int i=0; i<100; i++) {
-            for(int j=0; j<100; j++) {
+        Set<Position> positions = new HashSet<>();
+        for(int i=0; i<100; i++) { for(int j=0; j<100; j++) {
                 if(map[i][j] == 1) {
-                    Position position = new Position.FixedPosition(j-49,i-49,null);
-                    positions.add(position);
-                }
-            }
-        }
-        for(Position position:positions)
-            System.out.println("X : "+position.getX()+" | Y : " + position.getY());
+                    Position position = new Position.FixedPosition(j-49,i-49,null);positions.add(position);
+                } }
+        } for(Position position:positions) System.out.println("X : "+position.getX()+" | Y : " + position.getY());
         return positions;
     }
 }
