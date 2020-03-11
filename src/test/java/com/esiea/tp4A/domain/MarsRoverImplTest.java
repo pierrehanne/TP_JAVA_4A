@@ -139,4 +139,20 @@ class MarsRoverImplTest {
         Assertions.assertThat(planetMap.getInfo(position.getX(), position.getY()-1)==1);
     }
 
+    @Test
+    void playerDetectionNORTH(){
+        MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH);
+        MarsRoverImpl marsRoverPlayer = new MarsRoverImpl(0,1,Direction.NORTH);
+        boolean playerDetection = marsRover.playerDetection("F", marsRoverPlayer, marsRover.getCurrentPosition());
+        Assertions.assertThat(playerDetection);
+    }
+
+    @Test
+    void playerDetectionSOUTH(){
+        MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH);
+        MarsRoverImpl marsRoverPlayer = new MarsRoverImpl(0,-1,Direction.NORTH);
+        boolean playerDetection = marsRover.playerDetection("B", marsRoverPlayer, marsRover.getCurrentPosition());
+        Assertions.assertThat(playerDetection);
+    }
+
 }
