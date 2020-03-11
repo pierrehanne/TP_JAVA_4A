@@ -80,6 +80,14 @@ public class MarsRoverImpl implements MarsRover {
         return false;
     }
 
+    //Si on entre la commande pour avancer ou reculer, renvoie true si un joueur est placé sur la case de destination
+    public boolean playerDetection(String command, MarsRoverImpl marsRoverPlayer, Position checkPosition) {
+        if(command.equals("F")) checkPosition = checkPosition.forward1();
+        if(command.equals("B")) checkPosition = checkPosition.backward1();
+        if(checkPosition.getX() == marsRoverPlayer.currentPosition.getX() && checkPosition.getY() == marsRoverPlayer.currentPosition.getY()) return true;
+        return false;
+    }
+
     //génère un nouveau missile dans la direction du Rover
     public LaserBeamImpl Shoot(PlanetMapImpl planetMap){
         int laserBeamX = 0, laserBeamY = 0;

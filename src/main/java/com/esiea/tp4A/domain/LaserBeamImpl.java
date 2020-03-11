@@ -15,7 +15,10 @@ public class LaserBeamImpl {
         return currentPosition;
     }
 
+    public Boolean getDestroyed() { return destroyed; }
+
     public Position move (PlanetMapImpl planetMap){
+        currentDirection = currentPosition.getDirection();
         if(!destroyed){
             if(currentDirection == Direction.SOUTH) currentPosition = Position.of(currentPosition.getX(), currentPosition.getY()-1, currentDirection);
             if(currentDirection == Direction.WEST) currentPosition = Position.of(currentPosition.getX()-1, currentPosition.getY(), currentDirection);
