@@ -9,27 +9,30 @@ class MarsRoverImplTest {
 
     @Test
     void initial() {
-        MarsRoverImpl marsRoverImpl = new MarsRoverImpl(0, 0, Direction.NORTH);
         PlanetMapImpl planetMap = new PlanetMapImpl();
-        Position position = marsRoverImpl.move("", planetMap);
+        MarsRoverImpl marsRover = new MarsRoverImpl(0, 0, Direction.NORTH, planetMap);
+        Position position = marsRover.move("");
+        marsRover.updateMap(planetMap);
         Assertions.assertThat(position).isEqualTo(Position.of(0, 0, Direction.NORTH));
     }
 
     @Test
     void right_direction(){
-        MarsRover marsRover = new MarsRoverImpl(0, 0, Direction.NORTH);
         PlanetMapImpl planetMap = new PlanetMapImpl();
-        Position newPosition = marsRover.move("R", planetMap);
+        MarsRover marsRover = new MarsRoverImpl(0, 0, Direction.NORTH, planetMap);
+        Position newPosition = marsRover.move("R");
+        marsRover.updateMap(planetMap);
         Assertions.assertThat(newPosition).isEqualTo(Position.of(0, 0, Direction.EAST));
     }
 
     @Test
     void allRightDirection() {
-        MarsRover marsRover = new MarsRoverImpl(0, 0, Direction.NORTH);
         PlanetMapImpl planetMap = new PlanetMapImpl();
+        MarsRover marsRover = new MarsRoverImpl(0, 0, Direction.NORTH, planetMap);
         for(int i = 0; i<4; i++) {
-            marsRover = new MarsRoverImpl(0, 0,Direction.values()[i]);
-            Position position = marsRover.move("R", planetMap);
+            marsRover = new MarsRoverImpl(0, 0,Direction.values()[i], planetMap);
+            Position position = marsRover.move("R");
+            marsRover.updateMap(planetMap);
             if(i==3)
                 Assertions.assertThat(position).isEqualTo(Position.of(0, 0, Direction.values()[0]));
             else
@@ -39,11 +42,12 @@ class MarsRoverImplTest {
 
     @Test
     void allLeftDirection() {
-        MarsRover marsRover = new MarsRoverImpl(0, 0, Direction.NORTH);
         PlanetMapImpl planetMap = new PlanetMapImpl();
+        MarsRover marsRover = new MarsRoverImpl(0, 0, Direction.NORTH, planetMap);
         for(int i = 0; i<4; i++) {
-            marsRover = new MarsRoverImpl(0, 0,Direction.values()[i]);
-            Position position = marsRover.move("L", planetMap);
+            marsRover = new MarsRoverImpl(0, 0,Direction.values()[i], planetMap);
+            Position position = marsRover.move("L");
+            marsRover.updateMap(planetMap);
             if(i==0)
                 Assertions.assertThat(position).isEqualTo(Position.of(0, 0, Direction.values()[3]));
             else
@@ -54,77 +58,86 @@ class MarsRoverImplTest {
     @Test
     void backward_direction()
     {
-        MarsRover marsRover = new MarsRoverImpl(0,0,Direction.NORTH);
         PlanetMapImpl planetMap = new PlanetMapImpl();
-        Position position = marsRover.move("B", planetMap);
+        MarsRover marsRover = new MarsRoverImpl(0,0,Direction.NORTH, planetMap);
+        Position position = marsRover.move("B");
+        marsRover.updateMap(planetMap);
+        marsRover.updateMap(planetMap);
         Assertions.assertThat(position).isEqualTo(Position.of(0,-1,Direction.NORTH));
     }
 
     @Test
     void forward_direction()
     {
-        MarsRover marsRover = new MarsRoverImpl(0,0,Direction.NORTH);
         PlanetMapImpl planetMap = new PlanetMapImpl();
-        Position position = marsRover.move("F", planetMap);
+        MarsRover marsRover = new MarsRoverImpl(0,0,Direction.NORTH, planetMap);
+        Position position = marsRover.move("F");
+        marsRover.updateMap(planetMap);
         Assertions.assertThat(position).isEqualTo(Position.of(0,1,Direction.NORTH));
     }
 
     @Test
     void limitNorth() {
-        MarsRover marsRover = new MarsRoverImpl(0,50,Direction.NORTH);
         PlanetMapImpl planetMap = new PlanetMapImpl();
-        Position position = marsRover.move("F", planetMap);
+        MarsRover marsRover = new MarsRoverImpl(0,50,Direction.NORTH, planetMap);
+        Position position = marsRover.move("F");
+        marsRover.updateMap(planetMap);
         Assertions.assertThat(position).isEqualTo(Position.of(0,-49,Direction.NORTH));
     }
 
     @Test
     void limitSouth() {
-        MarsRover marsRover = new MarsRoverImpl(0,-49,Direction.SOUTH);
         PlanetMapImpl planetMap = new PlanetMapImpl();
-        Position position = marsRover.move("F", planetMap);
+        MarsRover marsRover = new MarsRoverImpl(0,-49,Direction.SOUTH, planetMap);
+        Position position = marsRover.move("F");
+        marsRover.updateMap(planetMap);
         Assertions.assertThat(position).isEqualTo(Position.of(0,50,Direction.SOUTH));
     }
 
     @Test
     void limitWest() {
-        MarsRover marsRover = new MarsRoverImpl(50,0,Direction.WEST);
         PlanetMapImpl planetMap = new PlanetMapImpl();
-        Position position = marsRover.move("F", planetMap);
+        MarsRover marsRover = new MarsRoverImpl(50,0,Direction.WEST, planetMap);
+        Position position = marsRover.move("F");
+        marsRover.updateMap(planetMap);
         Assertions.assertThat(position).isEqualTo(Position.of(-49,0,Direction.WEST));
     }
 
     @Test
     void limitEast() {
-        MarsRover marsRover = new MarsRoverImpl(-49,0,Direction.EAST);
         PlanetMapImpl planetMap = new PlanetMapImpl();
-        Position position = marsRover.move("F", planetMap);
+        MarsRover marsRover = new MarsRoverImpl(-49,0,Direction.EAST, planetMap);
+        Position position = marsRover.move("F");
+        marsRover.updateMap(planetMap);
         Assertions.assertThat(position).isEqualTo(Position.of(50,0,Direction.EAST));
     }
 
     @Test
     void obstacleDetectionForward(){
-        MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH);
         PlanetMapImpl planetMap = new PlanetMapImpl();
+        MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH, planetMap);
         planetMap.generateObstacles();
         Position oldPosition = marsRover.initPosNextToObstacle("NORTH", planetMap);
-        marsRover.move("F", planetMap);
+        marsRover.move("F");
+        marsRover.updateMap(planetMap);
         Assertions.assertThat(marsRover.getCurrentPosition()).isEqualTo(oldPosition);
     }
 
     @Test
     void obstacleDetectionBackward(){
-        MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH);
         PlanetMapImpl planetMap = new PlanetMapImpl();
+        MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH, planetMap);
         planetMap.generateObstacles();
         Position oldPosition = marsRover.initPosNextToObstacle("SOUTH", planetMap);
-        marsRover.move("B", planetMap);
+        marsRover.move("B");
+        marsRover.updateMap(planetMap);
         Assertions.assertThat(marsRover.getCurrentPosition()).isEqualTo(oldPosition);
     }
 
     @Test
     void initPositionNextToObstacleNorth(){
-        MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH);
         PlanetMapImpl planetMap = new PlanetMapImpl();
+        MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH, planetMap);
         planetMap.generateObstacles();
         Position position = marsRover.initPosNextToObstacle("NORTH", planetMap);
         Assertions.assertThat(planetMap.getInfo(position.getX(), position.getY()+1)==1);
@@ -132,8 +145,8 @@ class MarsRoverImplTest {
 
     @Test
     void initPositionNextToObstacleSouth(){
-        MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH);
         PlanetMapImpl planetMap = new PlanetMapImpl();
+        MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH, planetMap);
         planetMap.generateObstacles();
         Position position = marsRover.initPosNextToObstacle("SOUTH", planetMap);
         Assertions.assertThat(planetMap.getInfo(position.getX(), position.getY()-1)==1);
@@ -141,16 +154,18 @@ class MarsRoverImplTest {
 
     @Test
     void playerDetectionNORTH(){
-        MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH);
-        MarsRoverImpl marsRoverPlayer = new MarsRoverImpl(0,1,Direction.NORTH);
+        PlanetMapImpl planetMap = new PlanetMapImpl();
+        MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH, planetMap);
+        MarsRoverImpl marsRoverPlayer = new MarsRoverImpl(0,1,Direction.NORTH, planetMap);
         boolean playerDetection = marsRover.playerDetection("F", marsRoverPlayer, marsRover.getCurrentPosition());
         Assertions.assertThat(playerDetection);
     }
 
     @Test
     void playerDetectionSOUTH(){
-        MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH);
-        MarsRoverImpl marsRoverPlayer = new MarsRoverImpl(0,-1,Direction.NORTH);
+        PlanetMapImpl planetMap = new PlanetMapImpl();
+        MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH, planetMap);
+        MarsRoverImpl marsRoverPlayer = new MarsRoverImpl(0,-1,Direction.NORTH, planetMap);
         boolean playerDetection = marsRover.playerDetection("B", marsRoverPlayer, marsRover.getCurrentPosition());
         Assertions.assertThat(playerDetection);
     }

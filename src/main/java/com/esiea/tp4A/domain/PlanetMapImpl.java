@@ -1,14 +1,20 @@
 package com.esiea.tp4A.domain;
 
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 public class PlanetMapImpl implements PlanetMap {
 
     private final int [][] map;
+    //private int size;
+    private int[] sizeTab = {100};//, 300, 600};
+    private int size;
 
     public PlanetMapImpl() {
-        this.map = new int[100][100];
+        Random rand = new Random();
+        size = rand.nextInt(sizeTab.length);
+        this.map = new int[sizeTab[size]][sizeTab[size]];
     }
 
     public int[][] getMap() {
@@ -16,11 +22,16 @@ public class PlanetMapImpl implements PlanetMap {
     }
 
     public void generateObstacles() {
-        int obstaclesLeft = 150;
+        int obstaclesLeft = (int) (sizeTab[size] * 15);
+        System.out.println(sizeTab[size] * sizeTab[size] + " | " + obstaclesLeft);
+        //int obstaclesLeft = 150;
         while (obstaclesLeft > 0) {
-            for (int i = 0; i < 100; i++) {
-                for (int j = 0; j < 100; j++) {
-                    if ((int)(Math.random()*100) == 0 && obstaclesLeft > 0 && map[i][j] == 0) map[i][j] = 1;obstaclesLeft--;
+            for (int i = 0; i < sizeTab[size]; i++) {
+                for (int j = 0; j < sizeTab[size]; j++) {
+                    if ((int)(Math.random()*100) == 0 && obstaclesLeft > 0 && map[i][j] == 0) {
+                        map[i][j] = 1;
+                        obstaclesLeft--;
+                    }
                 }
             }
         }
@@ -53,6 +64,14 @@ public class PlanetMapImpl implements PlanetMap {
         return map[y+49][x+49];
     }
 
+    public void MajMap(int x, int y, int value) {
+        if(x==51) map[y+49][0] = value;
+        if(y==51) map[0][x+49] = value;
+        if(x==-50)  map[y+49][99] = value;
+        if(y==-50)  map[99][x+49] = value;
+        if(x!=51 && y!=51 && x!=-50 && y!=-50) map[y+49][x+49] = value;
+    }
+
     public void displayMap(){
         int x, y;
         for(y=-49;y<=50;y++){
@@ -65,7 +84,7 @@ public class PlanetMapImpl implements PlanetMap {
     @Override
     public Set<Position> obstaclePositions() {
         Set<Position> positions = new HashSet<>();
-        for(int i=0; i<100; i++) { for(int j=0; j<100; j++) {
+        for(int i=0; i<sizeTab[size]; i++) { for(int j=0; j<sizeTab[size]; j++) {
                 if(map[i][j] == 1) {
                     Position position = new Position.FixedPosition(j-49,i-49,null);positions.add(position);
                 } }
