@@ -34,7 +34,7 @@ class PlanetMapImplTest {
         Set<Position> positions;
         positions = planetMap.obstaclePositions();
         planetMap.displayMap();
-        Assertions.assertThat(positions.size()).isEqualTo(150);
+        Assertions.assertThat(positions.size()).isEqualTo(1500);
     }
 
     //Test si la liste des positions des obstacles sont bien à 1

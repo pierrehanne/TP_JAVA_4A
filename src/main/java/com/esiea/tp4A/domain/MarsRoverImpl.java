@@ -6,11 +6,11 @@ public class MarsRoverImpl implements MarsRover {
 
     private Position currentPosition;
     private Direction currentDirection;
-    //private PlanetMapImpl planetMap;
+    private PlanetMapImpl planetMap;
 
-    MarsRoverImpl(int x, int y, Direction direction) {
+    MarsRoverImpl(int x, int y, Direction direction, PlanetMapImpl planetmap) {
         currentPosition = Position.of(x, y, direction);
-        //planetMap = createPlanetMap();
+        planetMap = planetmap;
     }
 
     public Position getCurrentPosition(){
@@ -22,9 +22,23 @@ public class MarsRoverImpl implements MarsRover {
     }*/
 
     @Override
-    public Position move (String command, PlanetMapImpl planetMap){
+    public MarsRover initialize(Position position) {
+        this.currentPosition = position;
+        return this;
+    }
+
+    @Override
+    public MarsRover updateMap(PlanetMap map) {
+        int [][] Map = planetMap.getMap();
+        Map[currentPosition.getY()+49][currentPosition.getY()+49] = 2;
+        return this;
+    }
+
+    @Override
+    public Position move (String command){
         boolean obstacle = this.obstacleDetection(command, planetMap, currentPosition);
-        //boolean obstacle = false;
+        //planetMap.getMap()[currentPosition.getY()-49][currentPosition.getY()-49]=0;
+        planetMap.MajMap(currentPosition.getX(), currentPosition.getY(), 0);
         if ("L".equals(command)) currentPosition = Position.of(currentPosition.getX(), currentPosition.getY(), currentPosition.getDirection().left());
         if(command.equals("R")) currentPosition = Position.of(currentPosition.getX(), currentPosition.getY(), currentPosition.getDirection().right());
         if(command.equals("F") && !obstacle) currentPosition = currentPosition.forward1();
