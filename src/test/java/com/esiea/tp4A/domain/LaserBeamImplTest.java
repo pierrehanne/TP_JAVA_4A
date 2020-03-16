@@ -115,9 +115,10 @@ public class LaserBeamImplTest {
         PlanetMapImpl planetMap = new PlanetMapImpl();
         MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH, planetMap);
         LaserBeamImpl laserBeam = marsRover.Shoot(planetMap);
-        marsRover.move("R");
-        marsRover.move("F"); //on se décale pour ne pas se faire toucher par notre propre missile
+        marsRover.move("r");
+        marsRover.move("f"); //on se décale pour ne pas se faire toucher par notre propre missile
         int range = laserBeam.getRange();
+        System.out.println("Range : " + range);
 
         //on se déplace jusqu'à la portée maximale du laser puis on vérifie qu'il a été détruit
         for(int i=1 ; i<range ; i++){
