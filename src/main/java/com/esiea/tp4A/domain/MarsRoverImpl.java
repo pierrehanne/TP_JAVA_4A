@@ -5,8 +5,8 @@ import java.util.Set;
 public class MarsRoverImpl implements MarsRover {
 
     private Position currentPosition;
-    private Direction currentDirection;
-    private PlanetMapImpl planetMap;
+    //private Direction currentDirection;
+    private final PlanetMapImpl planetMap;
 
     MarsRoverImpl(int x, int y, Direction direction, PlanetMapImpl planetmap) {
         currentPosition = Position.of(x, y, direction);
@@ -36,13 +36,18 @@ public class MarsRoverImpl implements MarsRover {
 
     @Override
     public Position move (String command){
-        boolean obstacle = this.obstacleDetection(command, planetMap, currentPosition);
-        //planetMap.getMap()[currentPosition.getY()-49][currentPosition.getY()-49]=0;
-        planetMap.MajMap(currentPosition.getX(), currentPosition.getY(), 0);
-        if ("L".equals(command)) currentPosition = Position.of(currentPosition.getX(), currentPosition.getY(), currentPosition.getDirection().left());
-        if(command.equals("R")) currentPosition = Position.of(currentPosition.getX(), currentPosition.getY(), currentPosition.getDirection().right());
-        if(command.equals("F") && !obstacle) currentPosition = currentPosition.forward1();
-        if(command.equals("B") && !obstacle) currentPosition = currentPosition.backward1();
+        for(int i = 0; i<command.length();i++) {
+            Character action = command.charAt(i);
+            boolean obstacle = this.obstacleDetection(action, planetMap, currentPosition);
+            planetMap.MajMap(currentPosition.getX(), currentPosition.getY(), 0);
+            if (action.equals('l'))
+                currentPosition = Position.of(currentPosition.getX(), currentPosition.getY(), currentPosition.getDirection().left());
+            if (action.equals('r'))
+                currentPosition = Position.of(currentPosition.getX(), currentPosition.getY(), currentPosition.getDirection().right());
+            if (action.equals('f') && !obstacle) currentPosition = currentPosition.forward1();
+            if (action.equals('b') && !obstacle) currentPosition = currentPosition.backward1();
+            System.out.println(i+" X : " + currentPosition.getX()+" Y : "+ currentPosition.getY());
+        }
         return currentPosition; }
 
     //Crée une carte de la planète et génère des obstacles
@@ -75,9 +80,9 @@ public class MarsRoverImpl implements MarsRover {
     }
 
     //Si on entre la commande pour avancer ou reculer, renvoie true si la case de destination contient un obstacle
-    public boolean obstacleDetection(String command, PlanetMapImpl planetMap, Position checkPosition) {
-        if(command.equals("F")) checkPosition = checkPosition.forward1();
-        if(command.equals("B")) checkPosition = checkPosition.backward1();
+    public boolean obstacleDetection(Character command, PlanetMapImpl planetMap, Position checkPosition) {
+        if(command.equals('f')) checkPosition = checkPosition.forward1();
+        if(command.equals('b')) checkPosition = checkPosition.backward1();
         if(planetMap.getInfo(checkPosition.getX(), checkPosition.getY())==1) return true;
         /*
         if ((command.equals("F") && planetMap.getInfo(currentPosition.getX(), currentPosition.getY()+1)==1) ||
@@ -87,8 +92,8 @@ public class MarsRoverImpl implements MarsRover {
 
     //Si on entre la commande pour avancer ou reculer, renvoie true si un joueur est placé sur la case de destination
     public boolean playerDetection(String command, MarsRoverImpl marsRoverPlayer, Position checkPosition) {
-        if(command.equals("F")) checkPosition = checkPosition.forward1();
-        if(command.equals("B")) checkPosition = checkPosition.backward1();
+        if(command.equals("f")) checkPosition = checkPosition.forward1();
+        if(command.equals("b")) checkPosition = checkPosition.backward1();
         if(checkPosition.getX() == marsRoverPlayer.currentPosition.getX() && checkPosition.getY() == marsRoverPlayer.currentPosition.getY()) return true;
         return false;
     }
@@ -96,10 +101,11 @@ public class MarsRoverImpl implements MarsRover {
     //génère un nouveau missile dans la direction du Rover
     public LaserBeamImpl Shoot(PlanetMapImpl planetMap){
         int laserBeamX = 0, laserBeamY = 0;
-        if(currentPosition.getDirection() == Direction.SOUTH){ laserBeamX = currentPosition.getX(); laserBeamY = currentPosition.getY()-1;}
-        if(currentPosition.getDirection() == Direction.NORTH){ laserBeamX = currentPosition.getX(); laserBeamY = currentPosition.getY()+1;}
-        if(currentPosition.getDirection() == Direction.WEST){ laserBeamX = currentPosition.getX()-1; laserBeamY = currentPosition.getY();}
-        if(currentPosition.getDirection() == Direction.EAST){ laserBeamX = currentPosition.getX()+1; laserBeamY = currentPosition.getY();}
+        boolean obstacles = obstacleDetection('f', planetMap, currentPosition);
+        if(currentPosition.getDirection() == Direction.SOUTH && !obstacles){ laserBeamX = currentPosition.getX(); laserBeamY = currentPosition.getY()-1;}
+        if(currentPosition.getDirection() == Direction.NORTH && !obstacles){ laserBeamX = currentPosition.getX(); laserBeamY = currentPosition.getY()+1;}
+        if(currentPosition.getDirection() == Direction.WEST && !obstacles){ laserBeamX = currentPosition.getX()-1; laserBeamY = currentPosition.getY();}
+        if(currentPosition.getDirection() == Direction.EAST && !obstacles){ laserBeamX = currentPosition.getX()+1; laserBeamY = currentPosition.getY();}
         LaserBeamImpl laserBeam = new LaserBeamImpl(laserBeamX, laserBeamY, currentPosition.getDirection());
         return laserBeam;
     }

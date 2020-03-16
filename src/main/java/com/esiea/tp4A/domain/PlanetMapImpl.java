@@ -8,8 +8,8 @@ public class PlanetMapImpl implements PlanetMap {
 
     private final int [][] map;
     //private int size;
-    private int[] sizeTab = {100};//, 300, 600};
-    private int size;
+    private final int[] sizeTab = {100};//, 300, 600};
+    private final int size;
 
     public PlanetMapImpl() {
         Random rand = new Random();

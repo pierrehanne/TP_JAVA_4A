@@ -46,14 +46,15 @@ public class LaserBeamImpl {
         currentDirection = currentPosition.getDirection();
         if(!destroyed){
             //planetMap.MajMap(currentPosition.getX(), currentPosition.getY(), 0);
-            if(currentDirection == Direction.SOUTH) currentPosition = Position.of(currentPosition.getX(), currentPosition.getY()-1, currentDirection);
+            /*if(currentDirection == Direction.SOUTH) currentPosition = Position.of(currentPosition.getX(), currentPosition.getY()-1, currentDirection);
             if(currentDirection == Direction.WEST) currentPosition = Position.of(currentPosition.getX()-1, currentPosition.getY(), currentDirection);
             if(currentDirection == Direction.NORTH) currentPosition = Position.of(currentPosition.getX(), currentPosition.getY()+1, currentDirection);
-            if(currentDirection == Direction.EAST) currentPosition = Position.of(currentPosition.getX()+1, currentPosition.getY(), currentDirection);
+            if(currentDirection == Direction.EAST) currentPosition = Position.of(currentPosition.getX()+1, currentPosition.getY(), currentDirection);*/
+            currentPosition = currentPosition.forward1();
             distanceTravelled++;
 
             System.out.println("Position map:" + this.getCurrentPosition().getX() + "," + this.getCurrentPosition().getY());
-            laserMapLimit();
+            //laserMapLimit();
         }
         obstacleCollisionCheck(planetMap);
         rangeCheck();

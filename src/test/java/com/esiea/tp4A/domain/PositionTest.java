@@ -16,14 +16,14 @@ class PositionTest {
 
     @Test
     void getXLimitXWest() {
-        Position position = Position.of(50,0,Direction.WEST);
+        Position position = Position.of(50,0,Direction.EAST);
         int x = position.getX();
         Assertions.assertThat(x).isEqualTo(-50);
     }
 
     @Test
     void getXLimitXEast() {
-        Position position = Position.of(-49,0,Direction.EAST);
+        Position position = Position.of(-49,0,Direction.WEST);
         int x = position.getX();
         Assertions.assertThat(x).isEqualTo(51);
     }
@@ -70,11 +70,11 @@ class PositionTest {
             if(i==0)
                 Assertions.assertThat(position).isEqualTo(Position.of(0, 1, Direction.values()[i]));
             if(i==1)
-                Assertions.assertThat(position).isEqualTo(Position.of(-1, 0, Direction.values()[i]));
+                Assertions.assertThat(position).isEqualTo(Position.of(1, 0, Direction.values()[i]));
             if(i==2)
                 Assertions.assertThat(position).isEqualTo(Position.of(0, -1, Direction.values()[i]));
             if(i==3)
-                Assertions.assertThat(position).isEqualTo(Position.of(1, 0, Direction.values()[i]));
+                Assertions.assertThat(position).isEqualTo(Position.of(-1, 0, Direction.values()[i]));
         }
     }
 
@@ -86,11 +86,11 @@ class PositionTest {
             if(i==0)
                 Assertions.assertThat(position).isEqualTo(Position.of(0, -1, Direction.values()[i]));
             if(i==1)
-                Assertions.assertThat(position).isEqualTo(Position.of(1, 0, Direction.values()[i]));
+                Assertions.assertThat(position).isEqualTo(Position.of(-1, 0, Direction.values()[i]));
             if(i==2)
                 Assertions.assertThat(position).isEqualTo(Position.of(0, 1, Direction.values()[i]));
             if(i==3)
-                Assertions.assertThat(position).isEqualTo(Position.of(-1, 0, Direction.values()[i]));
+                Assertions.assertThat(position).isEqualTo(Position.of(1, 0, Direction.values()[i]));
         }
     }
 }
