@@ -27,15 +27,11 @@ public interface Position {
 
             @Override
             public int getX() {
-                if (this.x == 50 && this.direction == Direction.EAST) return -50;
-                if (this.x == -49 && this.direction == Direction.WEST) return 51;
                 return x;
             }
 
             @Override
             public int getY() {
-                if (this.y == 50 && this.direction == Direction.NORTH) return -50;
-                if (this.y == -49 && this.direction == Direction.SOUTH) return 51;
                 return y;
             }
 
@@ -45,24 +41,32 @@ public interface Position {
             }
 
             public Position forward1() {
+                if (this.y == 50 && this.direction == Direction.NORTH)  return Position.of(this.getX(), -49, this.getDirection());
+                if (this.y == -49 && this.direction == Direction.SOUTH)  return Position.of(this.getX(), 50, this.getDirection());
                 if(this.getDirection() == Direction.NORTH) return Position.of(this.getX(), this.getY() + 1, this.getDirection());
                 if(this.getDirection() == Direction.SOUTH) return Position.of(this.getX(), this.getY() - 1, this.getDirection());
                 return forward2();
             }
 
             public Position forward2() {
+                if (this.x == 50 && this.direction == Direction.EAST) return Position.of(-49, this.getY(), this.getDirection());
+                if (this.x == -49 && this.direction == Direction.WEST) return Position.of(50, this.getY(), this.getDirection());
                 if(this.getDirection() == Direction.WEST) return Position.of(this.getX() - 1, this.getY(), this.getDirection());
                 if(this.getDirection() == Direction.EAST) return Position.of(this.getX() + 1, this.getY(), this.getDirection());
                 return Position.of(this.getX(), this.getY(), this.getDirection());
             }
 
             public Position backward1() {
+                if (this.y == -49 && this.direction == Direction.NORTH)  return Position.of(this.getX(), 50, this.getDirection());
+                if (this.y == 50 && this.direction == Direction.SOUTH)  return Position.of(this.getX(), -49, this.getDirection());
                 if(this.getDirection() == Direction.NORTH) return Position.of(this.getX(), this.getY() - 1, this.getDirection());
                 if(this.getDirection() == Direction.SOUTH) return Position.of(this.getX(), this.getY() + 1, this.getDirection());
                 return backward2();
             }
 
             public Position backward2() {
+                if (this.x == -49 && this.direction == Direction.EAST) return Position.of(50, this.getY(), this.getDirection());
+                if (this.x == 50 && this.direction == Direction.WEST) return Position.of(-49, this.getY(), this.getDirection());
                 if(this.getDirection() == Direction.WEST) return Position.of(this.getX() + 1, this.getY(), this.getDirection());
                 if(this.getDirection() == Direction.EAST) return Position.of(this.getX() - 1, this.getY(), this.getDirection());
                 return Position.of(this.getX(), this.getY(), this.getDirection());

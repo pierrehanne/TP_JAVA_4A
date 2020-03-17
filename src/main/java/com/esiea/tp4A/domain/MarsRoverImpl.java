@@ -11,6 +11,7 @@ public class MarsRoverImpl implements MarsRover {
     MarsRoverImpl(int x, int y, Direction direction, PlanetMapImpl planetmap) {
         currentPosition = Position.of(x, y, direction);
         planetMap = planetmap;
+        initialize(currentPosition);
     }
 
     public Position getCurrentPosition(){
@@ -24,6 +25,7 @@ public class MarsRoverImpl implements MarsRover {
     @Override
     public MarsRover initialize(Position position) {
         this.currentPosition = position;
+        planetMap.MajMap(position.getX(), position.getY(), 2);
         return this;
     }
 

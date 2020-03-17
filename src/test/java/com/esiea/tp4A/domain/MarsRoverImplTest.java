@@ -197,4 +197,20 @@ class MarsRoverImplTest {
         Assertions.assertThat(playerDetection);
     }
 
+    @Test
+    void moves_on_spherical_map1() {
+        PlanetMapImpl planetMap = new PlanetMapImpl();
+        MarsRoverImpl marsRover = new MarsRoverImpl(-49,49,Direction.EAST, planetMap);
+        Position position = marsRover.move("b");
+        Assertions.assertThat(position).isEqualTo(Position.of(50,49,Direction.EAST));
+    }
+
+    @Test
+    void moves_on_spherical_map2() {
+        PlanetMapImpl planetMap = new PlanetMapImpl();
+        MarsRoverImpl marsRover = new MarsRoverImpl(49,49,Direction.WEST, planetMap);
+        Position position = marsRover.move("bb");
+        Assertions.assertThat(position).isEqualTo(Position.of(-49,49,Direction.WEST));
+    }
+
 }
