@@ -23,7 +23,7 @@ public class PlanetMapImpl implements PlanetMap {
 
     public void generateObstacles() {
         int obstaclesLeft = (int) (sizeTab[size] * 15);
-        System.out.println(sizeTab[size] * sizeTab[size] + " | " + obstaclesLeft);
+        System.out.println("Nombre de cases : "+sizeTab[size] * sizeTab[size] + " | Nombre d'obstacles : " + obstaclesLeft);
         //int obstaclesLeft = 150;
         while (obstaclesLeft > 0) {
             for (int i = 0; i < sizeTab[size]; i++) {

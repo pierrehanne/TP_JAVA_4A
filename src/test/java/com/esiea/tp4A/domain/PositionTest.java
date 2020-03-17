@@ -14,39 +14,12 @@ class PositionTest {
         Assertions.assertThat(x).isEqualTo(0);
     }
 
-    @Test
-    void getXLimitXWest() {
-        Position position = Position.of(50,0,Direction.EAST);
-        int x = position.getX();
-        Assertions.assertThat(x).isEqualTo(-50);
-    }
-
-    @Test
-    void getXLimitXEast() {
-        Position position = Position.of(-49,0,Direction.WEST);
-        int x = position.getX();
-        Assertions.assertThat(x).isEqualTo(51);
-    }
 
     @Test
     void getY() {
         Position position = Position.of(0,0,Direction.NORTH);
         int y = position.getY();
         Assertions.assertThat(y).isEqualTo(0);
-    }
-
-    @Test
-    void getXLimitYNorth() {
-        Position position = Position.of(0,50,Direction.NORTH);
-        int y = position.getY();
-        Assertions.assertThat(y).isEqualTo(-50);
-    }
-
-    @Test
-    void getXLimitYSouth() {
-        Position position = Position.of(0,-49,Direction.SOUTH);
-        int y = position.getY();
-        Assertions.assertThat(y).isEqualTo(51);
     }
 
     @Test
