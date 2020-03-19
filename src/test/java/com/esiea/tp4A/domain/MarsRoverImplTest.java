@@ -162,6 +162,20 @@ class MarsRoverImplTest {
     }
 
     @Test
+    void moves_are_ignored_in_case_of_collision(){
+        PlanetMapImpl planetMap = new PlanetMapImpl();
+        MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.SOUTH, planetMap);
+        //Placement des obstacles tout autour du Rover
+        planetMap.setMapSquare(0,1,1);
+        planetMap.setMapSquare(0,-1,1);
+        planetMap.setMapSquare(1,0,1);
+        planetMap.setMapSquare(-1,0,1);
+        Position expectedPos = Position.of(0,0,Direction.EAST);
+        Position position = marsRover.move("bllfrb");
+        Assertions.assertThat(marsRover.getCurrentPosition()).isEqualTo(expectedPos);
+    }
+
+    @Test
     void initPositionNextToObstacleNorth(){
         PlanetMapImpl planetMap = new PlanetMapImpl();
         MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH, planetMap);
