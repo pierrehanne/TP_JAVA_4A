@@ -11,10 +11,11 @@ public class PlanetMapImpl implements PlanetMap {
     private final int[] sizeTab = {100};//, 300, 600};
     private final int size;
 
-    public PlanetMapImpl() {
+    public PlanetMapImpl(Set<Position> obstaclePositions) {
         Random rand = new Random();
         size = rand.nextInt(sizeTab.length);
         this.map = new int[sizeTab[size]][sizeTab[size]];
+        if(obstaclePositions!=null) this.setObstacles(obstaclePositions);
     }
 
     public int[][] getMap() {
@@ -22,20 +23,15 @@ public class PlanetMapImpl implements PlanetMap {
     }
 
     public void generateObstacles() {
-        int obstaclesLeft = (int) (sizeTab[size] * 15);
+        int obstaclesLeft = (int) (sizeTab[size] * 15); //int obstaclesLeft = 150;
         System.out.println("Nombre de cases : "+sizeTab[size] * sizeTab[size] + " | Nombre d'obstacles : " + obstaclesLeft);
-        //int obstaclesLeft = 150;
         while (obstaclesLeft > 0) {
             for (int i = 0; i < sizeTab[size]; i++) {
                 for (int j = 0; j < sizeTab[size]; j++) {
                     if ((int)(Math.random()*100) == 0 && obstaclesLeft > 0 && map[i][j] == 0) {
                         map[i][j] = 1;
                         obstaclesLeft--;
-                    }
-                }
-            }
-        }
-    }
+                    }}}}}
 
     //ajoute la valeur passée en paramètres à la case aux coordonnées spécifiées
     public void setMapSquare(int x, int y, int value){
@@ -46,17 +42,7 @@ public class PlanetMapImpl implements PlanetMap {
         map[y+49][x+49] = value;
     }
 
-    //renvoie le contenu d'une case de la map
-    //prendre en compte le cas où on demande une case en dehors du tableau
-    //map circulaire, revenir de l'autre côté en transformant les coordonnées entrées
-    //-50 => 50
-    //-151 => -1
     public int getInfo(int x, int y) {
-        //********** rechercher la bonne formule **********//
-        //if(x<-49){
-            //int new_x = 50-(-x-49); //? pistes de recherche
-            //int new_x = -(50-x%50); //? modulo ?
-        //}
         if(x==51) return map[y+49][0];
         if(y==51) return map[0][x+49];
         if(x==-50)  return map[y+49][99];
@@ -87,8 +73,14 @@ public class PlanetMapImpl implements PlanetMap {
         for(int i=0; i<sizeTab[size]; i++) { for(int j=0; j<sizeTab[size]; j++) {
                 if(map[i][j] == 1) {
                     Position position = new Position.FixedPosition(j-49,i-49,null);positions.add(position);
-                } }
-        } for(Position position:positions) System.out.println("X : "+position.getX()+" | Y : " + position.getY());
+                }
+        } } for(Position position:positions) System.out.println("X : "+position.getX()+" | Y : " + position.getY());
         return positions;
+    }
+
+    public void setObstacles(Set<Position> obstaclePositions){
+        for(Position position:obstaclePositions){
+            setMapSquare(position.getX(), position.getY(), 1);
+        }
     }
 }

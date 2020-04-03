@@ -7,7 +7,7 @@ public class LaserBeamImplTest {
 
     @Test
     void ShootInitNORTH(){
-        PlanetMapImpl planetMap = new PlanetMapImpl();
+        PlanetMapImpl planetMap = new PlanetMapImpl(null);
         MarsRoverImpl marsRover = new MarsRoverImpl(0,0, Direction.NORTH, planetMap);
         LaserBeamImpl laserBeam = marsRover.Shoot(planetMap);
         Assertions.assertThat(laserBeam.getCurrentPosition()).isEqualTo(Position.of(marsRover.getCurrentPosition().getX(), marsRover.getCurrentPosition().getY()+1, Direction.NORTH));
@@ -15,7 +15,7 @@ public class LaserBeamImplTest {
 
     @Test
     void ShootInitSOUTH(){
-        PlanetMapImpl planetMap = new PlanetMapImpl();
+        PlanetMapImpl planetMap = new PlanetMapImpl(null);
         MarsRoverImpl marsRover = new MarsRoverImpl(0,0, Direction.SOUTH, planetMap);
         LaserBeamImpl laserBeam = marsRover.Shoot(planetMap);
         Assertions.assertThat(laserBeam.getCurrentPosition()).isEqualTo(Position.of(marsRover.getCurrentPosition().getX(), marsRover.getCurrentPosition().getY()-1, Direction.SOUTH));
@@ -23,7 +23,7 @@ public class LaserBeamImplTest {
 
     @Test
     void ShootInitWEST(){
-        PlanetMapImpl planetMap = new PlanetMapImpl();
+        PlanetMapImpl planetMap = new PlanetMapImpl(null);
         MarsRoverImpl marsRover = new MarsRoverImpl(0,0, Direction.WEST, planetMap);
         LaserBeamImpl laserBeam = marsRover.Shoot(planetMap);
         Assertions.assertThat(laserBeam.getCurrentPosition()).isEqualTo(Position.of(marsRover.getCurrentPosition().getX()-1, marsRover.getCurrentPosition().getY(), Direction.WEST));
@@ -31,7 +31,7 @@ public class LaserBeamImplTest {
 
     @Test
     void ShootInitEAST(){
-        PlanetMapImpl planetMap = new PlanetMapImpl();
+        PlanetMapImpl planetMap = new PlanetMapImpl(null);
         MarsRoverImpl marsRover = new MarsRoverImpl(0,0, Direction.EAST, planetMap);
         LaserBeamImpl laserBeam = marsRover.Shoot(planetMap);
         Assertions.assertThat(laserBeam.getCurrentPosition()).isEqualTo(Position.of(marsRover.getCurrentPosition().getX()+1, marsRover.getCurrentPosition().getY(), Direction.EAST));
@@ -39,7 +39,7 @@ public class LaserBeamImplTest {
 
     @Test
     void MoveLaserNORTH(){
-        PlanetMapImpl planetMap = new PlanetMapImpl();
+        PlanetMapImpl planetMap = new PlanetMapImpl(null);
         MarsRoverImpl marsRover = new MarsRoverImpl(0,0, Direction.NORTH, planetMap);
         LaserBeamImpl laserBeam = marsRover.Shoot(planetMap);
         Position oldPosition = laserBeam.getCurrentPosition();
@@ -49,7 +49,7 @@ public class LaserBeamImplTest {
 
     @Test
     void MoveLaserSOUTH(){
-        PlanetMapImpl planetMap = new PlanetMapImpl();
+        PlanetMapImpl planetMap = new PlanetMapImpl(null);
         MarsRoverImpl marsRover = new MarsRoverImpl(0,0, Direction.SOUTH, planetMap);
         LaserBeamImpl laserBeam = marsRover.Shoot(planetMap);
         Position oldPosition = laserBeam.getCurrentPosition();
@@ -59,7 +59,7 @@ public class LaserBeamImplTest {
 
     @Test
     void MoveLaserWEST(){
-        PlanetMapImpl planetMap = new PlanetMapImpl();
+        PlanetMapImpl planetMap = new PlanetMapImpl(null);
         MarsRoverImpl marsRover = new MarsRoverImpl(0,0, Direction.WEST, planetMap);
         LaserBeamImpl laserBeam = marsRover.Shoot(planetMap);
         Position oldPosition = laserBeam.getCurrentPosition();
@@ -69,7 +69,7 @@ public class LaserBeamImplTest {
 
     @Test
     void MoveLaserEAST(){
-        PlanetMapImpl planetMap = new PlanetMapImpl();
+        PlanetMapImpl planetMap = new PlanetMapImpl(null);
         MarsRoverImpl marsRover = new MarsRoverImpl(0,0, Direction.EAST, planetMap);
         LaserBeamImpl laserBeam = marsRover.Shoot(planetMap);
         Position oldPosition = laserBeam.getCurrentPosition();
@@ -79,7 +79,7 @@ public class LaserBeamImplTest {
 
     @Test
     void ObstacleCollisionCheckNORTH(){
-        PlanetMapImpl planetMap = new PlanetMapImpl();
+        PlanetMapImpl planetMap = new PlanetMapImpl(null);
         MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH, planetMap);
         planetMap.generateObstacles();
         Position position1 = marsRover.initPosNextToObstacle("NORTH", planetMap);
@@ -90,7 +90,7 @@ public class LaserBeamImplTest {
 
     @Test
     void ObstacleCollisionCheckSOUTH(){
-        PlanetMapImpl planetMap = new PlanetMapImpl();
+        PlanetMapImpl planetMap = new PlanetMapImpl(null);
         MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.SOUTH, planetMap);
         planetMap.generateObstacles();
         Position position1 = marsRover.initPosNextToObstacle("SOUTH", planetMap);
@@ -101,7 +101,7 @@ public class LaserBeamImplTest {
 
     @Test
     void initRangeTest(){
-        PlanetMapImpl planetMap = new PlanetMapImpl();
+        PlanetMapImpl planetMap = new PlanetMapImpl(null);
         MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.SOUTH, planetMap);
         LaserBeamImpl laserBeam = marsRover.Shoot(planetMap);
         int range = laserBeam.getRange();
@@ -112,7 +112,7 @@ public class LaserBeamImplTest {
 
     @Test
     void rangeReached(){
-        PlanetMapImpl planetMap = new PlanetMapImpl();
+        PlanetMapImpl planetMap = new PlanetMapImpl(null);
         MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH, planetMap);
         LaserBeamImpl laserBeam = marsRover.Shoot(planetMap);
         marsRover.move("r");
