@@ -3,13 +3,14 @@ package com.esiea.tp4A.domain;
 public class LaserBeamImpl {
 
     private Position currentPosition;
-    private Direction currentDirection;
+    private final Direction currentDirection;
     private boolean destroyed;
-    private int range;
+    private final int range;
     private int distanceTravelled;
 
     LaserBeamImpl(int x, int y, Direction direction) {
         currentPosition = Position.of(x, y, direction);
+        currentDirection = direction;
         destroyed = false;
         distanceTravelled=1;
         range = initRange();
@@ -22,6 +23,7 @@ public class LaserBeamImpl {
     public int getRange() { return range; }
 
     private int initRange(){
+        int range;
         int alea = (int) (Math.random() * 10);
         if(alea<6) { range = 30;} // faible portée
         if(alea==10) { range = 10000;} //portée illimitée (réfléchir à un moyen de représenter l'infini de manière plus "propre")
@@ -29,36 +31,27 @@ public class LaserBeamImpl {
         return range;
     }
 
-
+    /* //POUR L'INSTANT INUTILISEE
     //ajoute la valeur passée en paramètres à la case aux coordonnées spécifiées
     public void laserMapLimit(){
+        Position currentPosition = Position.of(0,0, Direction.NORTH);
         int x = getCurrentPosition().getX();
         int y = getCurrentPosition().getY();
-        if(x==51) { this.currentPosition = Position.of(-48, y, currentDirection); System.out.println("x=51");
+        if(x==51) { currentPosition = Position.of(-48, y, currentDirection); System.out.println("x=51");
             System.out.println("In laserMapLimit : Position map:" + this.getCurrentPosition().getX() + "," + this.getCurrentPosition().getY());
         }
-        if(y==51) { this.currentPosition = Position.of(x, -48, currentDirection); System.out.println("y=51"); }
-        if(x==-50) { this.currentPosition = Position.of(48, y, currentDirection); System.out.println("x=-50"); }
-        if(y==-50) { this.currentPosition = Position.of(x, 48, currentDirection); System.out.println("y=-50"); }
-    }
+        if(y==51) { currentPosition = Position.of(x, -48, currentDirection); System.out.println("y=51"); }
+        if(x==-50) { currentPosition = Position.of(48, y, currentDirection); System.out.println("x=-50"); }
+        if(y==-50) { currentPosition = Position.of(x, 48, currentDirection); System.out.println("y=-50"); }
+        this.currentPosition = currentPosition;
+    }*/
 
     public Position move (PlanetMapImpl planetMap){
-        currentDirection = currentPosition.getDirection();
-        if(!destroyed){
-            //planetMap.MajMap(currentPosition.getX(), currentPosition.getY(), 0);
-            /*if(currentDirection == Direction.SOUTH) currentPosition = Position.of(currentPosition.getX(), currentPosition.getY()-1, currentDirection);
-            if(currentDirection == Direction.WEST) currentPosition = Position.of(currentPosition.getX()-1, currentPosition.getY(), currentDirection);
-            if(currentDirection == Direction.NORTH) currentPosition = Position.of(currentPosition.getX(), currentPosition.getY()+1, currentDirection);
-            if(currentDirection == Direction.EAST) currentPosition = Position.of(currentPosition.getX()+1, currentPosition.getY(), currentDirection);*/
-            currentPosition = currentPosition.forward1();
-            distanceTravelled++;
-
-            System.out.println("Position map:" + this.getCurrentPosition().getX() + "," + this.getCurrentPosition().getY());
-            //laserMapLimit();
-        }
+        if(!destroyed){ currentPosition = currentPosition.forward1();
+                        distanceTravelled++;
+                        System.out.println("Position map:" + this.getCurrentPosition().getX() + "," + this.getCurrentPosition().getY()); }
         obstacleCollisionCheck(planetMap);
         rangeCheck();
-
         if(destroyed){ return null; }
         else{ return currentPosition;}
     }

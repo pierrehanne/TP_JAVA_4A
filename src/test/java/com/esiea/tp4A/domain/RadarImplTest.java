@@ -11,21 +11,21 @@ class RadarImplTest {
 
     @Test
     void InitialiseRadarPosition() {
-        PlanetMapImpl planetMap = new PlanetMapImpl();
+        PlanetMapImpl planetMap = new PlanetMapImpl(null);
         RadarImpl radar = new RadarImpl(Position.of(0,0,Direction.NORTH), planetMap);
         Assertions.assertThat(radar.getCurrentPosition()).isEqualTo(Position.of(0,0,Direction.NORTH));
     }
 
     @Test
     void InitialiseRadarMap() {
-        PlanetMapImpl planetMap = new PlanetMapImpl();
+        PlanetMapImpl planetMap = new PlanetMapImpl(null);
         RadarImpl radar = new RadarImpl(Position.of(0,0,Direction.NORTH), planetMap);
         Assertions.assertThat(radar.getPlanetMap()).isEqualTo(planetMap);
     }
 
     @Test
     void DisplayRadarFromCenter() {
-        PlanetMapImpl planetMap = new PlanetMapImpl();
+        PlanetMapImpl planetMap = new PlanetMapImpl(null);
         planetMap.generateObstacles();
         MarsRoverImpl marsRover = new MarsRoverImpl(1,1,Direction.NORTH, planetMap);
         RadarImpl radar = new RadarImpl(Position.of(0,0,Direction.NORTH), planetMap);
@@ -35,7 +35,7 @@ class RadarImplTest {
 
     @Test
     void obstaclePositions() {
-        PlanetMapImpl planetMap = new PlanetMapImpl();
+        PlanetMapImpl planetMap = new PlanetMapImpl(null);
         planetMap.generateObstacles();
         MarsRoverImpl marsRover = new MarsRoverImpl(1,1,Direction.NORTH, planetMap);
         RadarImpl radar = new RadarImpl(Position.of(0,0,Direction.NORTH), planetMap);
@@ -50,7 +50,7 @@ class RadarImplTest {
 
     @Test
     void playerPositions() {
-        PlanetMapImpl planetMap = new PlanetMapImpl();
+        PlanetMapImpl planetMap = new PlanetMapImpl(null);
         planetMap.generateObstacles();
         MarsRoverImpl marsRover = new MarsRoverImpl(-48,0,Direction.NORTH, planetMap);
         RadarImpl radar = new RadarImpl(Position.of(45,0,Direction.NORTH), planetMap);
@@ -60,7 +60,7 @@ class RadarImplTest {
 
     @Test
     void playerPositionsLimitsXPositiveToNegative() {
-        PlanetMapImpl planetMap = new PlanetMapImpl();
+        PlanetMapImpl planetMap = new PlanetMapImpl(null);
         planetMap.generateObstacles();
         MarsRoverImpl marsRover = new MarsRoverImpl(-48,0,Direction.NORTH, planetMap);
         RadarImpl radar = new RadarImpl(Position.of(45,0,Direction.NORTH), planetMap);
@@ -70,7 +70,7 @@ class RadarImplTest {
 
     @Test
     void playerPositionsLimitsYPositiveToNegative() {
-        PlanetMapImpl planetMap = new PlanetMapImpl();
+        PlanetMapImpl planetMap = new PlanetMapImpl(null);
         planetMap.generateObstacles();
         MarsRoverImpl marsRover = new MarsRoverImpl(0,-47,Direction.NORTH, planetMap);
         RadarImpl radar = new RadarImpl(Position.of(0,49,Direction.NORTH), planetMap);
@@ -80,7 +80,7 @@ class RadarImplTest {
 
     @Test
     void playerPositionsLimitsXNegativeToPositive() {
-        PlanetMapImpl planetMap = new PlanetMapImpl();
+        PlanetMapImpl planetMap = new PlanetMapImpl(null);
         planetMap.generateObstacles();
         MarsRoverImpl marsRover = new MarsRoverImpl(49,0,Direction.NORTH, planetMap);
         RadarImpl radar = new RadarImpl(Position.of(-48,0,Direction.NORTH), planetMap);
@@ -90,7 +90,7 @@ class RadarImplTest {
 
     @Test
     void playerPositionsLimitsYNegativeToPositive() {
-        PlanetMapImpl planetMap = new PlanetMapImpl();
+        PlanetMapImpl planetMap = new PlanetMapImpl(null);
         planetMap.generateObstacles();
         MarsRoverImpl marsRover = new MarsRoverImpl(48,0,Direction.NORTH, planetMap);
         RadarImpl radar = new RadarImpl(Position.of(-47,0,Direction.NORTH), planetMap);
