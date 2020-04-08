@@ -59,7 +59,7 @@ public class LaserBeamImpl {
     //si le laser rencontre un obstacle, ces deux éléments sont détruits
     public void obstacleCollisionCheck(PlanetMapImpl planetMap){
         if(planetMap.getInfo(currentPosition.getX(), currentPosition.getY())==1){
-            planetMap.setMapSquare(currentPosition.getX(), currentPosition.getY(), 0);
+            planetMap.MajMap(currentPosition.getX(), currentPosition.getY(), 0);
             destroyed = true;
         }
     }

@@ -34,13 +34,13 @@ public class PlanetMapImpl implements PlanetMap {
                     }}}}}
 
     //ajoute la valeur passée en paramètres à la case aux coordonnées spécifiées
-    public void setMapSquare(int x, int y, int value){
+    /*public void setMapSquare(int x, int y, int value){
         if(x==51) map[y+49][0] = value;
         if(y==51) map[0][x+49] = value;
         if(x==-50) map[y+49][99] = value;
         if(y==-50) map[99][x+49] = value;
         map[y+49][x+49] = value;
-    }
+    }*/
 
     public int getInfo(int x, int y) {
         if(x==51) return map[y+49][0];
@@ -58,14 +58,14 @@ public class PlanetMapImpl implements PlanetMap {
         if(x!=51 && y!=51 && x!=-50 && y!=-50) map[y+49][x+49] = value;
     }
 
-    public void displayMap(){
+    /*public void displayMap(){
         int x, y;
         for(y=-49;y<=50;y++){
             for(x=-49;x<=50;x++){
                 System.out.print(getInfo(x, y));
             } System.out.println();
         }
-    }
+    }*/
 
     @Override
     public Set<Position> obstaclePositions() {
@@ -80,7 +80,7 @@ public class PlanetMapImpl implements PlanetMap {
 
     public void setObstacles(Set<Position> obstaclePositions){
         for(Position position:obstaclePositions){
-            setMapSquare(position.getX(), position.getY(), 1);
+            MajMap(position.getX(), position.getY(), 1);
         }
     }
 }
