@@ -33,7 +33,7 @@ class PlanetMapImplTest {
         planetMap.generateObstacles();
         Set<Position> positions;
         positions = planetMap.obstaclePositions();
-        planetMap.displayMap();
+        //planetMap.displayMap();
         Assertions.assertThat(positions.size()).isEqualTo(1500);
     }
 
@@ -58,8 +58,16 @@ class PlanetMapImplTest {
     @Test
     void setMapSquare() {
         PlanetMapImpl planetMap = new PlanetMapImpl(null);
-        planetMap.setMapSquare(0,0,1);
+        planetMap.MajMap(0,0,1);
         Assertions.assertThat(planetMap.getInfo(0,0)).isEqualTo(1);
+        planetMap.MajMap(51,0,1);
+        Assertions.assertThat(planetMap.getInfo(51,0)).isEqualTo(1);
+        planetMap.MajMap(0,51,1);
+        Assertions.assertThat(planetMap.getInfo(0,51)).isEqualTo(1);
+        planetMap.MajMap(-50,0,1);
+        Assertions.assertThat(planetMap.getInfo(-50,0)).isEqualTo(1);
+        planetMap.MajMap(0,-50,1);
+        Assertions.assertThat(planetMap.getInfo(0,-50)).isEqualTo(1);
     }
 
     @Test
@@ -73,5 +81,14 @@ class PlanetMapImplTest {
             }
         }
         Assertions.assertThat(map).isEqualTo(mapTest);
+    }
+
+    @Test
+    void setObstacles() {
+        PlanetMapImpl planetMap = new PlanetMapImpl(null);
+        Set<Position> obstaclePositions = new HashSet<>();
+        obstaclePositions.add(Position.of(4, 5, Direction.NORTH));
+        planetMap.setObstacles(obstaclePositions);
+        Assertions.assertThat(planetMap.getInfo(4,5)).isEqualTo(1);
     }
 }

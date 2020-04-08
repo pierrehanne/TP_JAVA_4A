@@ -5,7 +5,7 @@ public class MarsRoverImpl implements MarsRover {
 
     private Position currentPosition;
     //private Direction currentDirection;
-    private PlanetMapImpl planetMap; //was final before
+    private PlanetMap planetMap; //was final before
 
     MarsRoverImpl(int x, int y, Direction direction, PlanetMapImpl planetmap) {
         this.planetMap = planetmap;
@@ -17,7 +17,7 @@ public class MarsRoverImpl implements MarsRover {
     }
     /*public PlanetMapImpl getPlanetMap() { return planetMap; }*/
 
-    private void setPlanetMap(PlanetMapImpl map){
+    private void setPlanetMap(PlanetMap map){
         this.planetMap = map;
     }
 
@@ -28,8 +28,8 @@ public class MarsRoverImpl implements MarsRover {
         return this;
     }
 
-    public MarsRover updateMap(PlanetMapImpl map) {
-        setPlanetMap(map);
+    public MarsRover updateMap(PlanetMap map) {
+        this.setPlanetMap(map);
         return this;
     }
 
@@ -53,15 +53,15 @@ public class MarsRoverImpl implements MarsRover {
     //TEST AFFICHAGE FONCTION MOVE// System.out.println(i+" X : " + currentPosition.getX()+" Y : "+ currentPosition.getY());
 
     //Crée une carte de la planète et génère des obstacles
-    public PlanetMapImpl createPlanetMap(){
+    /*public PlanetMapImpl createPlanetMap(){
         PlanetMapImpl planetMap = new PlanetMapImpl(null);
         planetMap.generateObstacles();
         return planetMap;
-    }
+    }*/
 
     //Positionnement du rover à côté d'un obstacle dans le cadre des tests, possibilité de préciser la position de l'obstacle par rapport à celle du rover (obstacle devant ou derrière le Rover)
     public Position initPosNextToObstacle(String obstaclePosition, PlanetMapImpl planetMap){
-        Set<Position> positions = planetMap.obstaclePositions(); boolean posFound = false; planetMap.displayMap();
+        Set<Position> positions = planetMap.obstaclePositions(); boolean posFound = false; //planetMap.displayMap();
         for(Position pos:positions) {
             if(!posFound && obstaclePosition.equals("NORTH") && planetMap.getInfo(pos.getX(), pos.getY()-1) == 0){ currentPosition = Position.of(pos.getX(), pos.getY()-1, Direction.NORTH); posFound = true; }
             if(!posFound && obstaclePosition.equals("SOUTH") && planetMap.getInfo(pos.getX(), pos.getY()+1) == 0){ currentPosition = Position.of(pos.getX(), pos.getY()+1, Direction.NORTH); posFound = true; }
@@ -70,7 +70,7 @@ public class MarsRoverImpl implements MarsRover {
     }
 
     //Si on entre la commande pour avancer ou reculer, renvoie true si la case de destination contient un obstacle
-    public boolean obstacleDetection(Character command, PlanetMapImpl planetMap, Position checkPosition) {
+    public boolean obstacleDetection(Character command, PlanetMap planetMap, Position checkPosition) {
         if(command.equals('f')) checkPosition = checkPosition.forward1();
         if(command.equals('b')) checkPosition = checkPosition.backward1();
         if(planetMap.getInfo(checkPosition.getX(), checkPosition.getY())==1) return true;

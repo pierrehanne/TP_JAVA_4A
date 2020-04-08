@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static com.esiea.tp4A.domain.Direction.EAST;
+import static com.esiea.tp4A.domain.Direction.SOUTH;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MarsRoverImplTest {
@@ -170,10 +171,10 @@ class MarsRoverImplTest {
         PlanetMapImpl planetMap = new PlanetMapImpl(null);
         MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.SOUTH, planetMap);
         //Placement des obstacles tout autour du Rover
-        planetMap.setMapSquare(0,1,1);
-        planetMap.setMapSquare(0,-1,1);
-        planetMap.setMapSquare(1,0,1);
-        planetMap.setMapSquare(-1,0,1);
+        planetMap.MajMap(0,1,1);
+        planetMap.MajMap(0,-1,1);
+        planetMap.MajMap(1,0,1);
+        planetMap.MajMap(-1,0,1);
         Position expectedPos = Position.of(0,0, EAST);
         Position position = marsRover.move("bllfrb");
         Assertions.assertThat(marsRover.getCurrentPosition()).isEqualTo(expectedPos);
