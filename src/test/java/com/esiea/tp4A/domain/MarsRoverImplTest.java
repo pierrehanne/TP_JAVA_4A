@@ -236,7 +236,7 @@ class MarsRoverImplTest {
         MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH, planetMap);
         MarsRoverImpl marsRoverPlayer = new MarsRoverImpl(0,1,Direction.NORTH, planetMap);
         boolean playerDetection = marsRover.playerDetection("f", marsRoverPlayer, marsRover.getCurrentPosition());
-        Assertions.assertThat(playerDetection);
+        Assertions.assertThat(playerDetection).isEqualTo(true);
     }
 
     @Test
@@ -245,7 +245,16 @@ class MarsRoverImplTest {
         MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH, planetMap);
         MarsRoverImpl marsRoverPlayer = new MarsRoverImpl(0,-1,Direction.NORTH, planetMap);
         boolean playerDetection = marsRover.playerDetection("b", marsRoverPlayer, marsRover.getCurrentPosition());
-        Assertions.assertThat(playerDetection);
+        Assertions.assertThat(playerDetection).isEqualTo(true);
+    }
+
+    @Test
+    void noPlayerDetected(){
+        PlanetMapImpl planetMap = new PlanetMapImpl(null);
+        MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH, planetMap);
+        MarsRoverImpl marsRoverPlayer = new MarsRoverImpl(5,0,Direction.NORTH, planetMap);
+        boolean playerDetection = marsRover.playerDetection("f", marsRoverPlayer, marsRover.getCurrentPosition());
+        Assertions.assertThat(playerDetection).isEqualTo(false);
     }
 
     @Test
