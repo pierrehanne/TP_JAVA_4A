@@ -82,18 +82,19 @@ public class MarsRoverImpl implements MarsRover {
         if(command.equals("f")) checkPosition = checkPosition.forward1();
         if(command.equals("b")) checkPosition = checkPosition.backward1();
         if(checkPosition.getX() == marsRoverPlayer.currentPosition.getX() && checkPosition.getY() == marsRoverPlayer.currentPosition.getY()) return true;
-        return false;
+        else{ return false; }
     }
 
     //génère un nouveau missile dans la direction du Rover
     public LaserBeamImpl Shoot(PlanetMapImpl planetMap){
         int laserBeamX = 0, laserBeamY = 0;
         boolean obstacles = obstacleDetection('f', planetMap, currentPosition);
-        if(currentPosition.getDirection() == Direction.SOUTH && !obstacles){ laserBeamX = currentPosition.getX(); laserBeamY = currentPosition.getY()-1;}
-        if(currentPosition.getDirection() == Direction.NORTH && !obstacles){ laserBeamX = currentPosition.getX(); laserBeamY = currentPosition.getY()+1;}
-        if(currentPosition.getDirection() == Direction.WEST && !obstacles){ laserBeamX = currentPosition.getX()-1; laserBeamY = currentPosition.getY();}
-        if(currentPosition.getDirection() == Direction.EAST && !obstacles){ laserBeamX = currentPosition.getX()+1; laserBeamY = currentPosition.getY();}
+        if(currentPosition.getDirection() == Direction.SOUTH){ laserBeamX = currentPosition.getX(); laserBeamY = currentPosition.getY()-1;}
+        if(currentPosition.getDirection() == Direction.NORTH){ laserBeamX = currentPosition.getX(); laserBeamY = currentPosition.getY()+1;}
+        if(currentPosition.getDirection() == Direction.WEST){ laserBeamX = currentPosition.getX()-1; laserBeamY = currentPosition.getY();}
+        if(currentPosition.getDirection() == Direction.EAST){ laserBeamX = currentPosition.getX()+1; laserBeamY = currentPosition.getY();}
         LaserBeamImpl laserBeam = new LaserBeamImpl(laserBeamX, laserBeamY, currentPosition.getDirection());
+        laserBeam.obstacleCollisionCheck(planetMap);
         return laserBeam;
     }
 }

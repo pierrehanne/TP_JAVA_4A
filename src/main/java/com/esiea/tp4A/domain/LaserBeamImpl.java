@@ -22,6 +22,10 @@ public class LaserBeamImpl {
     public Boolean getDestroyed() { return destroyed; }
     public int getRange() { return range; }
 
+    public void setDistanceTravelled(int distanceTravelled) {
+        this.distanceTravelled = distanceTravelled;
+    }
+
     private int initRange(){
         int range;
         int alea = (int) (Math.random() * 10);

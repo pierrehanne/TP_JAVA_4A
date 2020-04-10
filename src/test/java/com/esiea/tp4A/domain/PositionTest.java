@@ -68,6 +68,34 @@ class PositionTest {
     }
 
     @Test
+    void forwardLimitNORTH() {
+        Position position = Position.of(0, 50, Direction.NORTH);
+        position = position.forward1();
+        Assertions.assertThat(position).isEqualTo(Position.of(0, -49, Direction.NORTH));
+    }
+
+    @Test
+    void forwardLimitEAST() {
+        Position position = Position.of(50, 0,Direction.EAST);
+        position = position.forward1();
+        Assertions.assertThat(position).isEqualTo(Position.of(-49, 0, Direction.EAST));
+    }
+
+    @Test
+    void forwardLimitSOUTH() {
+        Position position = Position.of(0, -49,Direction.SOUTH);
+        position = position.forward1();
+        Assertions.assertThat(position).isEqualTo(Position.of(0, 50, Direction.SOUTH));
+    }
+
+    @Test
+    void forwardLimitWEST() {
+        Position position = Position.of(-49, 0,Direction.WEST);
+        position = position.forward1();
+        Assertions.assertThat(position).isEqualTo(Position.of(50, 0, Direction.WEST));
+    }
+
+    @Test
     void backward1() {
         for(int i = 0; i<4; i++) {
             Position position = Position.of(0, 0,Direction.values()[i]);
