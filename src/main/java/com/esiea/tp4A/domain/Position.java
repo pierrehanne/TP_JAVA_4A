@@ -75,21 +75,24 @@ public interface Position {
             }
 
             @Override
-            public String toString() {
-                return "FixedPosition{" + "x=" + x + ", y=" + y + ", direction=" + direction + '}';
-            }
+            public String toString() { return "FixedPosition{" + "x=" + x + ", y=" + y + ", direction=" + direction + '}'; }
 
-            @Override
+            /*@Override //ancienne version
             public boolean equals(Object o) {
                 if (this == o) return true;
                 if (o == null || getClass() != o.getClass()) return false;
                 FixedPosition that = (FixedPosition) o;
-                return x == that.x && y == that.y && direction == that.direction;
+                return x == that.x && y == that.y && direction == that.direction;}*/
+            @Override
+            public boolean equals(Object o) {
+                if (o == null) return false;
+                if (getClass() != o.getClass()) return false;
+                if (this == o) return true;
+                FixedPosition that = (FixedPosition) o;
+                return (x == that.x && y == that.y && direction == that.direction);
             }
 
             @Override
-            public int hashCode() {
-                return Objects.hash(x, y, direction);
-            }
+            public int hashCode() { return Objects.hash(x, y, direction); }
         }
 }

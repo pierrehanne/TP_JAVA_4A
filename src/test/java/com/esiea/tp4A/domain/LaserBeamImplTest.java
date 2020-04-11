@@ -192,6 +192,25 @@ public class LaserBeamImplTest {
     }
 
     @Test
+    void obstaclesDetectionNotDetected(){
+        Set<Position> obstaclePositions = new HashSet<>();
+        obstaclePositions.add(Position.of(0, 0, Direction.NORTH));
+        PlanetMapImpl planetMap = new PlanetMapImpl(obstaclePositions);
+
+        LaserBeamImpl laserBeam = new LaserBeamImpl(Position.of(0,1, Direction.NORTH),30); //on place le laser à côté de l'obstacle
+        laserBeam.obstaclesDetection(planetMap);
+        Assertions.assertThat(laserBeam.getDestroyed()).isEqualTo(false);
+
+        laserBeam = new LaserBeamImpl(Position.of(1,0, Direction.NORTH),30);
+        laserBeam.obstaclesDetection(planetMap);
+        Assertions.assertThat(laserBeam.getDestroyed()).isEqualTo(false);
+
+        laserBeam = new LaserBeamImpl(Position.of(1,1, Direction.NORTH),30);
+        laserBeam.obstaclesDetection(planetMap);
+        Assertions.assertThat(laserBeam.getDestroyed()).isEqualTo(false);
+    }
+
+    @Test
     void rangeCheckTest(){
         LaserBeamImpl laserBeam = new LaserBeamImpl(Position.of(0,0, Direction.NORTH),30);
         //System.out.println("Détruit :" + laserBeam.getDestroyed());

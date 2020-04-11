@@ -79,13 +79,8 @@ public class LaserBeamImpl {
                 if (position.getX() == currentPosition.getX() && position.getY() == currentPosition.getY()) {
                     planetMap.obstaclePositions().remove(position);
                     destroyed = true;
-                    System.out.println("Destroy : " + destroyed);
-                }
-            }
-            for (Position position : planetMap.obstaclePositions()) {
-                System.out.println("OBSTACLES : X : " + position.getX() + " Y : " + position.getY());
-            }
-        }
+                    System.out.println("Destroy : " + destroyed); } }
+            for (Position position : planetMap.obstaclePositions()) { System.out.println("OBSTACLES : X : " + position.getX() + " Y : " + position.getY()); } }
     }
 
     //vérifier que le laser n'a pas atteint sa portée maximale
