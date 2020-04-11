@@ -81,6 +81,15 @@ public class LaserBeamImplTest {
     }
 
     @Test
+    void destroyedLaserMove(){
+        PlanetMapImpl planetMap = new PlanetMapImpl(null);
+        LaserBeamImpl laserBeam = new LaserBeamImpl(Position.of(0,0, Direction.NORTH),30);
+        laserBeam.setDestroyed(true);
+        Position position = laserBeam.move(planetMap);
+        Assertions.assertThat(position).isEqualTo(null);
+    }
+
+    @Test
     void ObstacleCollisionCheckNORTH(){
         Set<Position> obstaclePositions = new HashSet<>();
         obstaclePositions.add(Position.of(0, 1, Direction.NORTH));
@@ -177,14 +186,14 @@ public class LaserBeamImplTest {
         Set<Position> obstaclePositions = new HashSet<>();
         obstaclePositions.add(Position.of(0, 0, Direction.NORTH));
         PlanetMapImpl planetMap = new PlanetMapImpl(obstaclePositions);
-        LaserBeamImpl laserBeam = new LaserBeamImpl(0,0, Direction.NORTH); //on place directement le laser sur l'obstacle
+        LaserBeamImpl laserBeam = new LaserBeamImpl(Position.of(0,0, Direction.NORTH),30); //on place directement le laser sur l'obstacle
         laserBeam.obstacleCollisionCheck(planetMap);
         Assertions.assertThat(laserBeam.getDestroyed()).isEqualTo(true);
     }
 
     @Test
     void rangeCheckTest(){
-        LaserBeamImpl laserBeam = new LaserBeamImpl(0,0, Direction.NORTH);
+        LaserBeamImpl laserBeam = new LaserBeamImpl(Position.of(0,0, Direction.NORTH),30);
         //System.out.println("Détruit :" + laserBeam.getDestroyed());
         laserBeam.setDistanceTravelled(10001); //on met la distance parcourue à une valeur plus grande que n'importe quelle portée
         laserBeam.rangeCheck();
