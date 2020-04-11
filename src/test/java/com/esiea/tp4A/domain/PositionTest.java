@@ -68,6 +68,27 @@ class PositionTest {
     }
 
     @Test
+    void forwardOtherCasesTest(){
+        Position position = Position.of(0, 50,Direction.SOUTH);
+        position = position.forward1();
+        Assertions.assertThat(position).isEqualTo(Position.of(0, 49, Direction.SOUTH));
+        position = Position.of(0, -49,Direction.NORTH);
+        position = position.forward1();
+        Assertions.assertThat(position).isEqualTo(Position.of(0, -48, Direction.NORTH));
+
+        position = Position.of(50, 0,Direction.WEST);
+        position = position.forward1();
+        Assertions.assertThat(position).isEqualTo(Position.of(49, 0, Direction.WEST));
+        position = Position.of(-49, 0,Direction.EAST);
+        position = position.forward1();
+        Assertions.assertThat(position).isEqualTo(Position.of(-48, 0, Direction.EAST));
+
+        position = Position.of(0, 0,Direction.EAST);
+        position = position.forward1();
+        Assertions.assertThat(position).isEqualTo(Position.of(1, 0, Direction.EAST));
+    }
+
+    @Test
     void forwardLimitNORTH() {
         Position position = Position.of(0, 50, Direction.NORTH);
         position = position.forward1();
@@ -128,6 +149,27 @@ class PositionTest {
     }
 
     @Test
+    void backwardOtherCasesTest(){
+        Position position = Position.of(0, -49,Direction.SOUTH);
+        position = position.backward1();
+        Assertions.assertThat(position).isEqualTo(Position.of(0, -48, Direction.SOUTH));
+        position = Position.of(0, 50,Direction.NORTH);
+        position = position.backward1();
+        Assertions.assertThat(position).isEqualTo(Position.of(0, 49, Direction.NORTH));
+
+        position = Position.of(-49, 0,Direction.WEST);
+        position = position.backward1();
+        Assertions.assertThat(position).isEqualTo(Position.of(-48, 0, Direction.WEST));
+        position = Position.of(50, 0,Direction.EAST);
+        position = position.backward1();
+        Assertions.assertThat(position).isEqualTo(Position.of(49, 0, Direction.EAST));
+
+        position = Position.of(0, 0,Direction.EAST);
+        position = position.backward1();
+        Assertions.assertThat(position).isEqualTo(Position.of(-1, 0, Direction.EAST));
+    }
+
+    @Test
     void testToString() {
         Position position = Position.of(0, 0,Direction.SOUTH);
         String test = position.toString();
@@ -135,10 +177,18 @@ class PositionTest {
     }
 
     @Test
-    void equals() {
-        Position position1 = Position.of(0, 0,Direction.SOUTH);
-        //Position position2 = Position.of(0, 0,Direction.NORTH);
-        Assertions.assertThat(position1.equals(null)).isEqualTo(false);
-        //Assertions.assertThat(position1.equals(position2)).isEqualTo(Position.of(0,0,Direction.NORTH));
+    void equalsTest() {
+        int var = 0;
+        Position position = Position.of(0, 0,Direction.NORTH);
+        Assertions.assertThat(position.equals(null)).isEqualTo(false);
+        Assertions.assertThat(position.equals(var)).isEqualTo(false);
+        Assertions.assertThat(position.equals(Position.of(0,0, Direction.NORTH))).isEqualTo(true);
+        Assertions.assertThat(position.equals(Position.of(0,0, Direction.SOUTH))).isEqualTo(false);
+        Assertions.assertThat(position.equals(Position.of(0,1, Direction.NORTH))).isEqualTo(false);
+        Assertions.assertThat(position.equals(Position.of(0,1, Direction.SOUTH))).isEqualTo(false);
+        Assertions.assertThat(position.equals(Position.of(1,0, Direction.NORTH))).isEqualTo(false);
+        Assertions.assertThat(position.equals(Position.of(1,0, Direction.SOUTH))).isEqualTo(false);
+        Assertions.assertThat(position.equals(Position.of(1,1, Direction.NORTH))).isEqualTo(false);
+        Assertions.assertThat(position.equals(Position.of(1,1, Direction.SOUTH))).isEqualTo(false);
     }
 }
