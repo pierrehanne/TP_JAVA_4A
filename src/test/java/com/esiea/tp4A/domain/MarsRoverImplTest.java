@@ -181,10 +181,12 @@ class MarsRoverImplTest {
         PlanetMapImpl planetMap = new PlanetMapImpl(null);
         MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.SOUTH, planetMap);
         //Placement des obstacles tout autour du Rover
-        planetMap.MajMap(0,1,1);
-        planetMap.MajMap(0,-1,1);
-        planetMap.MajMap(1,0,1);
-        planetMap.MajMap(-1,0,1);
+        Set<Position> obstaclePositions = new HashSet<>();
+        obstaclePositions.add(Position.of(0, 1, Direction.NORTH));
+        obstaclePositions.add(Position.of(0, -1, Direction.NORTH));
+        obstaclePositions.add(Position.of(1, 0, Direction.NORTH));
+        obstaclePositions.add(Position.of(-1, 0, Direction.NORTH));
+        marsRover.updateMap(new PlanetMapImpl(obstaclePositions));
         Position expectedPos = Position.of(0,0, EAST);
         Position position = marsRover.move("bllfrb");
         Assertions.assertThat(marsRover.getCurrentPosition()).isEqualTo(expectedPos);

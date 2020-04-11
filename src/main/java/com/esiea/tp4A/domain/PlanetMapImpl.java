@@ -10,6 +10,7 @@ public class PlanetMapImpl implements PlanetMap {
     //private int size;
     private final int[] sizeTab = {100};//, 300, 600};
     private final int size;
+    private Set<Position> obstacles;
 
     public PlanetMapImpl(Set<Position> obstaclePositions) {
         Random rand = new Random();
@@ -24,6 +25,7 @@ public class PlanetMapImpl implements PlanetMap {
 
     public void generateObstacles() {
         int obstaclesLeft = (int) (sizeTab[size] * 15); //int obstaclesLeft = 150;
+        obstacles =  new HashSet<>();
         System.out.println("Nombre de cases : "+sizeTab[size] * sizeTab[size] + " | Nombre d'obstacles : " + obstaclesLeft);
         while (obstaclesLeft > 0) {
             for (int i = 0; i < sizeTab[size]; i++) {
@@ -31,6 +33,7 @@ public class PlanetMapImpl implements PlanetMap {
                     if ((int)(Math.random()*100) == 0 && obstaclesLeft > 0 && map[i][j] == 0) {
                         map[i][j] = 1;
                         obstaclesLeft--;
+                        obstacles.add(Position.of(j-49,i-49,Direction.NORTH));
                     }}}}}
 
     //ajoute la valeur passée en paramètres à la case aux coordonnées spécifiées
@@ -69,18 +72,20 @@ public class PlanetMapImpl implements PlanetMap {
 
     @Override
     public Set<Position> obstaclePositions() {
-        Set<Position> positions = new HashSet<>();
+        /*Set<Position> positions = new HashSet<>();
         for(int i=0; i<sizeTab[size]; i++) { for(int j=0; j<sizeTab[size]; j++) {
                 if(map[i][j] == 1) {
                     Position position = new Position.FixedPosition(j-49,i-49,null);positions.add(position);
                 }
         } } for(Position position:positions) System.out.println("X : "+position.getX()+" | Y : " + position.getY());
-        return positions;
+        return positions;*/
+        return this.obstacles;
     }
 
     public void setObstacles(Set<Position> obstaclePositions){
-        for(Position position:obstaclePositions){
-            MajMap(position.getX(), position.getY(), 1);
-        }
+        //for(Position position:obstaclePositions){
+            //MajMap(position.getX(), position.getY(), 1);
+        //}
+        this.obstacles = obstaclePositions;
     }
 }
