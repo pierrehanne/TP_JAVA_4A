@@ -241,6 +241,24 @@ class MarsRoverImplTest {
             .isEqualTo(Position.of(3, 4, EAST));
     }
 
+    @Test
+    void moveAndShootTest(){
+        String command = "sff";
+        MarsRoverImpl marsRover = new MarsRoverImpl(0,0, Direction.NORTH, new PlanetMapImpl(null));
+        marsRover.initialize(Position.of(0, 0, Direction.NORTH));
+
+        Set<Position> obstaclePositions = new HashSet<>();
+        obstaclePositions.add(Position.of(0, 2, Direction.NORTH));
+
+        marsRover.updateMap(new PlanetMapImpl(obstaclePositions));
+
+        Position newPosition = marsRover.move(command);
+
+        Assertions.assertThat(newPosition)
+            .as("new position after receiving command '" + command + "'")
+            .isEqualTo(Position.of(0, 2, Direction.NORTH));
+    }
+
     /*
     @Test
     void initPositionNextToObstacleNorth(){

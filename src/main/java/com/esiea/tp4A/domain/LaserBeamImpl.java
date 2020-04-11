@@ -24,7 +24,7 @@ public class LaserBeamImpl {
 
     public void setDistanceTravelled(int distanceTravelled) { this.distanceTravelled = distanceTravelled; }
     public void setDestroyed(boolean destroyed){ this.destroyed = destroyed; }
-    public void setCurrentPosition(Position position){ this.currentPosition = position;}
+    //public void setCurrentPosition(Position position){ this.currentPosition = position;}
 
     /*private int initRange(){
         int range;
@@ -50,7 +50,7 @@ public class LaserBeamImpl {
         this.currentPosition = currentPosition;
     }*/
 
-    public Position move (PlanetMapImpl planetMap){
+    public Position move (PlanetMap planetMap){
         if(!destroyed){
             currentPosition = currentPosition.forward1();
             distanceTravelled++;
@@ -59,6 +59,10 @@ public class LaserBeamImpl {
         rangeCheck();
         if(destroyed){ return null; }
         else{ return currentPosition;}
+    }
+
+    public void moveUntilCrash(PlanetMap planetMap){
+        while(!destroyed){ move(planetMap); }
     }
 
     //si le laser rencontre un obstacle, ces deux éléments sont détruits
