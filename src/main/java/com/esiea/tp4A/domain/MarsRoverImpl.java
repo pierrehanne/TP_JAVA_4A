@@ -58,7 +58,10 @@ public class MarsRoverImpl implements MarsRover {
         if (action.equals('r')) currentPosition = Position.of(currentPosition.getX(), currentPosition.getY(), currentPosition.getDirection().right());
         if (action.equals('f') && !obstacle) currentPosition = currentPosition.forward1();
         if (action.equals('b') && !obstacle) currentPosition = currentPosition.backward1();
-        if (action.equals('s')) this.Shoot(planetMap);
+        if (action.equals('s')) {
+            LaserBeamImpl laserBeam = this.Shoot(planetMap);
+            laserBeam.moveUntilCrash(planetMap);
+        }
     }
 
     //Si on entre la commande pour avancer ou reculer, renvoie true si la case de destination contient un obstacle
