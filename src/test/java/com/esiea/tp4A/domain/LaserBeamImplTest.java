@@ -104,7 +104,7 @@ public class LaserBeamImplTest {
 
         System.out.println("Position : " + laserBeam.getCurrentPosition().getX() + " " + laserBeam.getCurrentPosition().getY());
 
-        laserBeam.obstacleCollisionCheck(planetMap);
+        laserBeam.obstaclesDetection(planetMap);//obstacleCollisionCheck(planetMap);
         Position position = laserBeam.getCurrentPosition();
         Assertions.assertThat(laserBeam.getDestroyed() && planetMap.getInfo(position.getX(), position.getY())==0).isEqualTo(true);
     }
@@ -187,7 +187,7 @@ public class LaserBeamImplTest {
         obstaclePositions.add(Position.of(0, 0, Direction.NORTH));
         PlanetMapImpl planetMap = new PlanetMapImpl(obstaclePositions);
         LaserBeamImpl laserBeam = new LaserBeamImpl(Position.of(0,0, Direction.NORTH),30); //on place directement le laser sur l'obstacle
-        laserBeam.obstacleCollisionCheck(planetMap);
+        laserBeam.obstaclesDetection(planetMap);//obstacleCollisionCheck(planetMap);
         Assertions.assertThat(laserBeam.getDestroyed()).isEqualTo(true);
     }
 

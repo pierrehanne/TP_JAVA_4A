@@ -55,7 +55,7 @@ public class LaserBeamImpl {
             currentPosition = currentPosition.forward1();
             distanceTravelled++;
             System.out.println("Position map:" + this.getCurrentPosition().getX() + "," + this.getCurrentPosition().getY()); }
-        obstacleCollisionCheck(planetMap);
+        obstaclesDetection(planetMap);
         rangeCheck();
         if(destroyed){ return null; }
         else{ return currentPosition;}
@@ -66,10 +66,25 @@ public class LaserBeamImpl {
     }
 
     //si le laser rencontre un obstacle, ces deux éléments sont détruits
-    public void obstacleCollisionCheck(PlanetMap planetMap){
+    /*public void obstacleCollisionCheck(PlanetMap planetMap){
         if(planetMap.getInfo(currentPosition.getX(), currentPosition.getY())==1){
             planetMap.MajMap(currentPosition.getX(), currentPosition.getY(), 0);
             destroyed = true;
+        }
+    }*/
+
+    public void obstaclesDetection(PlanetMap planetMap) {
+        if(planetMap.obstaclePositions() != null) {
+            for (Position position : planetMap.obstaclePositions()) {
+                if (position.getX() == currentPosition.getX() && position.getY() == currentPosition.getY()) {
+                    planetMap.obstaclePositions().remove(position);
+                    destroyed = true;
+                    System.out.println("Destroy : " + destroyed);
+                }
+            }
+            for (Position position : planetMap.obstaclePositions()) {
+                System.out.println("OBSTACLES : X : " + position.getX() + " Y : " + position.getY());
+            }
         }
     }
 
