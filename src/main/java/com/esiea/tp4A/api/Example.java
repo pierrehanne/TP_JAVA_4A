@@ -1,5 +1,6 @@
 package com.esiea.tp4A.api;
 
+/*
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.stereotype.*;
@@ -19,3 +20,4 @@ public class Example {
     }
 
 }
+*/
