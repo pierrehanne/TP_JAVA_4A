@@ -14,7 +14,6 @@ public class ApiController {
     //Permet à un joueur de rejoindre une session et attribut à un user un id
     @GetMapping("/join")
     public String join(@RequestParam(value = "name", defaultValue = "World") String name) {
-
         planetMap.generateObstacles();
         MarsRoverImpl marsRover = new MarsRoverImpl(0,0, Direction.NORTH,planetMap);
         Playerz.put(Id,marsRover);
@@ -61,21 +60,17 @@ public class ApiController {
             if (player.getKey() != marsRover) {
                 Position pos =  ((MarsRoverImpl)player.getValue()).getCurrentPosition();
                 if(Math.abs(pos.getX()-P_area.getX()) <= 15 && Math.abs(pos.getY()-P_area.getY()) <= 15)
-                    temp += ((MarsRoverImpl)player.getValue()).getCurrentPosition();
-                }
-        }
+                    temp += ((MarsRoverImpl)player.getValue()).getCurrentPosition(); } }
         return temp;
     }
 
     @GetMapping("rover/status")
     public String status(@RequestParam (value = "id", defaultValue = "-1") Integer marsRover) {
-        Boolean stat = Playerz.get(marsRover).isAlive();
+        boolean stat = Playerz.get(marsRover).isAlive();
         if (stat) {
             return ("You're still Alive !");
         }
         return ("You're Dead...");
     }
-
-
 
 }
