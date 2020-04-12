@@ -28,32 +28,52 @@ public class ApiControllerTest {
     public void return_helloworld_wher_get_hello() {
         String name = "World";
         String body = this.restTemplate.getForObject("/join", String.class);
-        assertThat(body).isEqualTo("Hello %s! your id is %d", name ,1);
+        assertThat(body).contains("Id");
 
     }
 
-    /* Revoir le test petit problèmes dans les paramètres entrés maybe
     @Test
     public void return_get_current_position() {
         String join = this.restTemplate.getForObject("/join",String.class);
-        Map<String,String> params = new HashMap<String, String>();
-        params.put("id", "-1");
-        Integer id = 1;
-        String body = this.restTemplate.getForObject("/rover/position", String.class,params);
+        String id = join.split("=")[1];
+        String body = this.restTemplate.getForObject("/rover/position?id="+id, String.class);
         assertThat(body).contains("Current position of rover : ");
     }
 
-    /*
+
     @Test
     public void return_get_current_position_aft_moves() {
         String join = this.restTemplate.getForObject("/join",String.class);
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("id", "-1");
-        String body = this.restTemplate.getForObject("/rover/move", String.class, params);
+        String id = join.split("=")[1];
+        String body = this.restTemplate.getForObject("/rover/move?id="+id+"&command=f", String.class);
         assertThat(body).contains("Current position of rover : ");
-
 
     }
 
-     */
+    @Test
+    public void return_shoot() {
+        String join = this.restTemplate.getForObject("/join",String.class);
+        String id = join.split("=")[1];
+        String body = this.restTemplate.getForObject("/rover/shoot?id="+id, String.class);
+        assertThat(body).isEqualTo("Fire !");
+    }
+
+    @Test
+    public void return_shoot_range() {
+        String join = this.restTemplate.getForObject("/join",String.class);
+        String id = join.split("=")[1];
+        String body = this.restTemplate.getForObject("/rover/shoot/range?id="+id, String.class);
+        assertThat(body).contains("Laser range = ");
+
+    }
+
+    @Test
+    public void return_detection() {
+        String join = this.restTemplate.getForObject("/join",String.class);
+        String id = join.split("=")[1];
+        String body = this.restTemplate.getForObject("/rover/detection?id="+id, String.class);
+        assertThat(body).contains("Position: ");
+
+    }
+
 }

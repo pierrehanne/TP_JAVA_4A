@@ -12,7 +12,7 @@ public class MarsRoverImpl implements MarsRover {
         initialize(Position.of(x, y, direction));
         configureLaserRange(30);
     }
-
+    public int getLaserRange() { return laserRange; }
     public Position getCurrentPosition(){ return currentPosition; }
     public PlanetMap getPlanetMap() { return planetMap; }
 
