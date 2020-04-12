@@ -12,7 +12,7 @@ public class LaserBeamImpl {
         currentPosition = position;
         currentDirection = position.getDirection();
         destroyed = false;
-        distanceTravelled=1;
+        distanceTravelled=0;
         this.range = range; // = initRange();
     }
 
@@ -51,14 +51,14 @@ public class LaserBeamImpl {
     }*/
 
     public Position move (PlanetMap planetMap){
+        distanceTravelled++;
+        rangeCheck();
         if(!destroyed){
             currentPosition = currentPosition.forward1();
-            distanceTravelled++;
-            System.out.println("Position map:" + this.getCurrentPosition().getX() + "," + this.getCurrentPosition().getY()); }
-        obstaclesDetection(planetMap);
-        rangeCheck();
-        if(destroyed){ return null; }
-        else{ return currentPosition;}
+            System.out.println("Position map:" + this.getCurrentPosition().getX() + "," + this.getCurrentPosition().getY());
+            obstaclesDetection(planetMap);
+            return currentPosition; }
+        else{ return null; }
     }
 
     public void moveUntilCrash(PlanetMap planetMap){

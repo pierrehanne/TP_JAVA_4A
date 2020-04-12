@@ -93,12 +93,7 @@ public class MarsRoverImpl implements MarsRover {
     }
 
     public LaserBeamImpl initLaserBeam(){
-        Position position = Position.of(0,0, Direction.NORTH);
-        if(currentPosition.getDirection() == Direction.SOUTH){ position = Position.of(currentPosition.getX(), currentPosition.getY()-1, currentPosition.getDirection());}
-        if(currentPosition.getDirection() == Direction.NORTH){ position = Position.of(currentPosition.getX(), currentPosition.getY()+1, currentPosition.getDirection());}
-        if(currentPosition.getDirection() == Direction.WEST){ position = Position.of(currentPosition.getX()-1, currentPosition.getY(), currentPosition.getDirection());}
-        if(currentPosition.getDirection() == Direction.EAST){ position = Position.of(currentPosition.getX()+1, currentPosition.getY(), currentPosition.getDirection());}
-        LaserBeamImpl laserBeam = new LaserBeamImpl(position, laserRange);
+        LaserBeamImpl laserBeam = new LaserBeamImpl(Position.of(this.getCurrentPosition().getX(), this.getCurrentPosition().getY(), this.getCurrentPosition().getDirection()), laserRange);
         return laserBeam;
     }
 }

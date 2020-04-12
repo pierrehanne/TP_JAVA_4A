@@ -13,7 +13,7 @@ public class LaserBeamImplTest {
         PlanetMapImpl planetMap = new PlanetMapImpl(null);
         MarsRoverImpl marsRover = new MarsRoverImpl(0,0, Direction.NORTH, planetMap);
         LaserBeamImpl laserBeam = marsRover.Shoot(planetMap);
-        Assertions.assertThat(laserBeam.getCurrentPosition()).isEqualTo(Position.of(marsRover.getCurrentPosition().getX(), marsRover.getCurrentPosition().getY()+1, Direction.NORTH));
+        Assertions.assertThat(laserBeam.getCurrentPosition()).isEqualTo(Position.of(marsRover.getCurrentPosition().getX(), marsRover.getCurrentPosition().getY(), Direction.NORTH));
     }
 
     @Test
@@ -21,7 +21,7 @@ public class LaserBeamImplTest {
         PlanetMapImpl planetMap = new PlanetMapImpl(null);
         MarsRoverImpl marsRover = new MarsRoverImpl(0,0, Direction.SOUTH, planetMap);
         LaserBeamImpl laserBeam = marsRover.Shoot(planetMap);
-        Assertions.assertThat(laserBeam.getCurrentPosition()).isEqualTo(Position.of(marsRover.getCurrentPosition().getX(), marsRover.getCurrentPosition().getY()-1, Direction.SOUTH));
+        Assertions.assertThat(laserBeam.getCurrentPosition()).isEqualTo(Position.of(marsRover.getCurrentPosition().getX(), marsRover.getCurrentPosition().getY(), Direction.SOUTH));
     }
 
     @Test
@@ -29,7 +29,7 @@ public class LaserBeamImplTest {
         PlanetMapImpl planetMap = new PlanetMapImpl(null);
         MarsRoverImpl marsRover = new MarsRoverImpl(0,0, Direction.WEST, planetMap);
         LaserBeamImpl laserBeam = marsRover.Shoot(planetMap);
-        Assertions.assertThat(laserBeam.getCurrentPosition()).isEqualTo(Position.of(marsRover.getCurrentPosition().getX()-1, marsRover.getCurrentPosition().getY(), Direction.WEST));
+        Assertions.assertThat(laserBeam.getCurrentPosition()).isEqualTo(Position.of(marsRover.getCurrentPosition().getX(), marsRover.getCurrentPosition().getY(), Direction.WEST));
     }
 
     @Test
@@ -37,7 +37,7 @@ public class LaserBeamImplTest {
         PlanetMapImpl planetMap = new PlanetMapImpl(null);
         MarsRoverImpl marsRover = new MarsRoverImpl(0,0, Direction.EAST, planetMap);
         LaserBeamImpl laserBeam = marsRover.Shoot(planetMap);
-        Assertions.assertThat(laserBeam.getCurrentPosition()).isEqualTo(Position.of(marsRover.getCurrentPosition().getX()+1, marsRover.getCurrentPosition().getY(), Direction.EAST));
+        Assertions.assertThat(laserBeam.getCurrentPosition()).isEqualTo(Position.of(marsRover.getCurrentPosition().getX(), marsRover.getCurrentPosition().getY(), Direction.EAST));
     }
 
     @Test
@@ -105,7 +105,7 @@ public class LaserBeamImplTest {
         System.out.println("Position : " + laserBeam.getCurrentPosition().getX() + " " + laserBeam.getCurrentPosition().getY());
 
         laserBeam.obstaclesDetection(planetMap);//obstacleCollisionCheck(planetMap);
-        Position position = laserBeam.getCurrentPosition();
+        Position position = laserBeam.move(planetMap);
         Assertions.assertThat(laserBeam.getDestroyed() && planetMap.getInfo(position.getX(), position.getY())==0).isEqualTo(true);
     }
 
@@ -116,7 +116,7 @@ public class LaserBeamImplTest {
         PlanetMapImpl planetMap = new PlanetMapImpl(obstaclePositions);
         MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.SOUTH, planetMap);
         LaserBeamImpl laserBeam = marsRover.Shoot(planetMap);
-        Position position = laserBeam.getCurrentPosition();
+        Position position = laserBeam.move(planetMap);
         Assertions.assertThat(laserBeam.getDestroyed() && planetMap.getInfo(position.getX(), position.getY())==0).isEqualTo(true);
     }
 
@@ -127,7 +127,7 @@ public class LaserBeamImplTest {
         PlanetMapImpl planetMap = new PlanetMapImpl(obstaclePositions);
         MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.WEST, planetMap);
         LaserBeamImpl laserBeam = marsRover.Shoot(planetMap);
-        Position position = laserBeam.getCurrentPosition();
+        Position position = laserBeam.move(planetMap);
         Assertions.assertThat(laserBeam.getDestroyed() && planetMap.getInfo(position.getX(), position.getY())==0).isEqualTo(true);
     }
 
@@ -138,7 +138,7 @@ public class LaserBeamImplTest {
         PlanetMapImpl planetMap = new PlanetMapImpl(obstaclePositions);
         MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.EAST, planetMap);
         LaserBeamImpl laserBeam = marsRover.Shoot(planetMap);
-        Position position = laserBeam.getCurrentPosition();
+        Position position = laserBeam.move(planetMap);
         Assertions.assertThat(laserBeam.getDestroyed() && planetMap.getInfo(position.getX(), position.getY())==0).isEqualTo(true);
     }
 
@@ -164,11 +164,23 @@ public class LaserBeamImplTest {
         System.out.println("Range : " + range);
 
         //on se déplace jusqu'à la portée maximale du laser puis on vérifie qu'il a été détruit
-        for(int i=1 ; i<range+1 ; i++){
+        for(int i=1 ; i<=range+1 ; i++){
             //System.out.println("Position map:" + laserBeam.getCurrentPosition().getX() + "," + laserBeam.getCurrentPosition().getY());
             laserBeam.move(planetMap);
         }
         Assertions.assertThat(laserBeam.getDestroyed()).isEqualTo(true);
+    }
+
+    @Test
+    void obstacleOutOfRange(){
+        String command = "sff";
+        Set<Position> obstaclePositions = new HashSet<>();
+        obstaclePositions.add(Position.of(3, 1, Direction.EAST));
+        PlanetMapImpl planetMap = new PlanetMapImpl(obstaclePositions);
+        MarsRoverImpl marsRover = new MarsRoverImpl(1,1, Direction.EAST, planetMap);
+        marsRover.configureLaserRange(1);
+        marsRover.move(command);
+        Assertions.assertThat(marsRover.getCurrentPosition()).isEqualTo(Position.of(2,1,Direction.EAST));
     }
 
     /*
