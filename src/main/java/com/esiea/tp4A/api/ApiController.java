@@ -67,6 +67,15 @@ public class ApiController {
         return temp;
     }
 
+    @GetMapping("rover/status")
+    public String status(@RequestParam (value = "id", defaultValue = "-1") Integer marsRover) {
+        Boolean stat = Playerz.get(marsRover).isAlive();
+        if (stat) {
+            return ("You're still Alive !");
+        }
+        return ("You're Dead...");
+    }
+
 
 
 }

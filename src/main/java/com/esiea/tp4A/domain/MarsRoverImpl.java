@@ -6,6 +6,11 @@ public class MarsRoverImpl implements MarsRover {
     private Position currentPosition;
     private PlanetMap planetMap; //was final before
     private int laserRange;
+    private boolean isAlive;
+
+    public boolean isAlive() {
+        return isAlive;
+    }
 
     public MarsRoverImpl(int x, int y, Direction direction, PlanetMapImpl planetmap) {
         this.planetMap = planetmap;
