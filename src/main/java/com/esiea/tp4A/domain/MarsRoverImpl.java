@@ -16,6 +16,7 @@ public class MarsRoverImpl implements MarsRover {
         this.planetMap = planetmap;
         initialize(Position.of(x, y, direction));
         configureLaserRange(30);
+        isAlive = true;
     }
     public int getLaserRange() { return laserRange; }
     public Position getCurrentPosition(){ return currentPosition; }

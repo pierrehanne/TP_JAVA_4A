@@ -81,7 +81,7 @@ public class ApiControllerTest {
         String join = this.restTemplate.getForObject("/join",String.class);
         String id = join.split("=")[1];
         String body = this.restTemplate.getForObject("/rover/status?id="+id, String.class);
-        Boolean stat = body.contains("You're still Alive !")||body.contains("You're Dead...");
+        boolean stat = body.contains("You're still Alive !")||body.contains("You're Dead...");
         assertThat(stat).isEqualTo(true);
     }
 
