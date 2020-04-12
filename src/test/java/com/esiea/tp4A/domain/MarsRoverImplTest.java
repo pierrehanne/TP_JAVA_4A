@@ -7,8 +7,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static com.esiea.tp4A.domain.Direction.EAST;
-import static com.esiea.tp4A.domain.Direction.SOUTH;
-import static org.junit.jupiter.api.Assertions.*;
 
 class MarsRoverImplTest {
 
@@ -150,10 +148,6 @@ class MarsRoverImplTest {
         obstaclePositions.add(Position.of(0, 1, Direction.NORTH));
         PlanetMapImpl planetMap = new PlanetMapImpl(obstaclePositions);
         MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH, planetMap);
-
-        /*planetMap.generateObstacles();
-        Position oldPosition = marsRover.initPosNextToObstacle("NORTH", planetMap);*/
-
         Position oldPosition = marsRover.getCurrentPosition();
         marsRover.move("f");
         marsRover.updateMap(planetMap);
@@ -166,10 +160,6 @@ class MarsRoverImplTest {
         obstaclePositions.add(Position.of(0, -1, Direction.NORTH));
         PlanetMapImpl planetMap = new PlanetMapImpl(obstaclePositions);
         MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH, planetMap);
-
-        /*planetMap.generateObstacles();
-        Position oldPosition = marsRover.initPosNextToObstacle("SOUTH", planetMap);*/
-
         Position oldPosition = marsRover.getCurrentPosition();
         marsRover.move("b");
         marsRover.updateMap(planetMap);
@@ -192,22 +182,7 @@ class MarsRoverImplTest {
         Assertions.assertThat(marsRover.getCurrentPosition()).isEqualTo(expectedPos);
     }
 
-    /*
     @Test
-    void moves_ignored_test(){
-        String command = "bllfrb";
-        marsRover.initialize(Position.of(4, 4, Direction.SOUTH));
-        marsRover.updateMap(new MarsMap(Position.of(4, 5, Direction.NORTH), Position.of(5, 4, Direction.NORTH)));
-
-        Position newPosition = marsRover.move(command);
-
-        assertThat(newPosition)
-            .as("new position after receiving command '" + command + "'")
-            .isEqualTo(Position.of(3, 4, EAST));
-    }
-    */
-    @Test
-
     void moves_ignored_test() {
         String command = "bllfrb";
         MarsRoverImpl marsRover = new MarsRoverImpl(0,0, Direction.NORTH, new PlanetMapImpl(null));
@@ -230,7 +205,6 @@ class MarsRoverImplTest {
     void moves_ignored_test_correc(){
         String command = "bllfrb";
         MarsRoverImpl marsRover = new MarsRoverImpl(4,4,Direction.SOUTH, new PlanetMapImpl(null));
-        //marsRover.initialize(Position.of(4, 4, Direction.SOUTH));
         Set<Position> obstaclePositions = new HashSet<>();
         obstaclePositions.add(Position.of(4, 5, Direction.NORTH));
         obstaclePositions.add(Position.of(5, 4, Direction.NORTH));
@@ -260,26 +234,6 @@ class MarsRoverImplTest {
             .as("new position after receiving command '" + command + "'")
             .isEqualTo(Position.of(0, 2, Direction.NORTH));
     }
-
-    /*
-    @Test
-    void initPositionNextToObstacleNorth(){
-        PlanetMapImpl planetMap = new PlanetMapImpl(null);
-        MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH, planetMap);
-        planetMap.generateObstacles();
-        Position position = marsRover.initPosNextToObstacle("NORTH", planetMap);
-        Assertions.assertThat(planetMap.getInfo(position.getX(), position.getY()+1)==1);
-    }
-
-    @Test
-    void initPositionNextToObstacleSouth(){
-        PlanetMapImpl planetMap = new PlanetMapImpl(null);
-        MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH, planetMap);
-        planetMap.generateObstacles();
-        Position position = marsRover.initPosNextToObstacle("SOUTH", planetMap);
-        Assertions.assertThat(planetMap.getInfo(position.getX(), position.getY()-1)==1);
-    }
-    */
 
     @Test
     void playerDetectionForward(){

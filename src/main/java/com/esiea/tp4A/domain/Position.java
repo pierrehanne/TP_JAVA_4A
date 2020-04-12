@@ -52,9 +52,7 @@ public interface Position {
                 if (this.x == 50 && this.direction == Direction.EAST) return Position.of(-49, this.getY(), this.getDirection());
                 if (this.x == -49 && this.direction == Direction.WEST) return Position.of(50, this.getY(), this.getDirection());
                 if(this.getDirection() == Direction.WEST) return Position.of(this.getX() - 1, this.getY(), this.getDirection());
-                //if(this.getDirection() == Direction.EAST)
                 return Position.of(this.getX() + 1, this.getY(), this.getDirection());
-                //return Position.of(this.getX(), this.getY(), this.getDirection());
             }
 
             public Position backward1() {
@@ -69,20 +67,12 @@ public interface Position {
                 if (this.x == -49 && this.direction == Direction.EAST) return Position.of(50, this.getY(), this.getDirection());
                 if (this.x == 50 && this.direction == Direction.WEST) return Position.of(-49, this.getY(), this.getDirection());
                 if(this.getDirection() == Direction.WEST) return Position.of(this.getX() + 1, this.getY(), this.getDirection());
-                //if(this.getDirection() == Direction.EAST)
                 return Position.of(this.getX() - 1, this.getY(), this.getDirection());
-                //return Position.of(this.getX(), this.getY(), this.getDirection());
             }
 
             @Override
             public String toString() { return "FixedPosition{" + "x=" + x + ", y=" + y + ", direction=" + direction + '}'; }
 
-            /*@Override //ancienne version
-            public boolean equals(Object o) {
-                if (this == o) return true;
-                if (o == null || getClass() != o.getClass()) return false;
-                FixedPosition that = (FixedPosition) o;
-                return x == that.x && y == that.y && direction == that.direction;}*/
             @Override
             public boolean equals(Object o) {
                 if (o == null) return false;

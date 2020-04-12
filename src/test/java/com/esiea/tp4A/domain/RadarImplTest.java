@@ -26,16 +26,6 @@ class RadarImplTest {
         Assertions.assertThat(radar.getPlanetMap()).isEqualTo(planetMap);
     }
 
-    /*@Test
-    void DisplayRadarFromCenter() {
-        PlanetMapImpl planetMap = new PlanetMapImpl(null);
-        planetMap.generateObstacles();
-        MarsRoverImpl marsRover = new MarsRoverImpl(0,0,Direction.NORTH, planetMap);
-        RadarImpl radar = new RadarImpl(marsRover, planetMap);
-        radar.displayRadar();
-        Assertions.assertThat(radar.getPlanetMap()).isEqualTo(planetMap);
-    }*/
-
     @Test
     void obstaclePositions() {
         PlanetMapImpl planetMap = new PlanetMapImpl(null);
@@ -91,7 +81,6 @@ class RadarImplTest {
     @Test
     void obstaclesPositionsLimitsXNegativeToPositive() {
         PlanetMapImpl planetMap = new PlanetMapImpl(null);
-        //planetMap.generateObstacles();
         MarsRoverImpl marsRover = new MarsRoverImpl(-48,0,Direction.NORTH, planetMap);
         Set<Position> obstaclePositions = new HashSet<>();
         obstaclePositions.add(Position.of(49, 0, Direction.NORTH));
