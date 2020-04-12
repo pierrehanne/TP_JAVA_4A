@@ -7,7 +7,7 @@ public class MarsRoverImpl implements MarsRover {
     private PlanetMap planetMap; //was final before
     private int laserRange;
 
-    MarsRoverImpl(int x, int y, Direction direction, PlanetMapImpl planetmap) {
+    public MarsRoverImpl(int x, int y, Direction direction, PlanetMapImpl planetmap) {
         this.planetMap = planetmap;
         initialize(Position.of(x, y, direction));
         configureLaserRange(30);
