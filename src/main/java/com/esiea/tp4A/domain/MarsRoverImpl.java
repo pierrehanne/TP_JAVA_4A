@@ -1,10 +1,9 @@
 package com.esiea.tp4A.domain;
-import java.util.Set;
 
 public class MarsRoverImpl implements MarsRover {
 
     private Position currentPosition;
-    private PlanetMap planetMap; //was final before
+    private PlanetMap planetMap;
     private int laserRange;
     private boolean isAlive;
 
@@ -30,7 +29,6 @@ public class MarsRoverImpl implements MarsRover {
     @Override
     public MarsRover initialize(Position position) {
         this.currentPosition = position;
-        //planetMap.MajMap(position.getX(), position.getY(), 2);
         return this;
     }
 
@@ -61,9 +59,7 @@ public class MarsRoverImpl implements MarsRover {
         if(planetMap.obstaclePositions() != null) {
             for (Position position : planetMap.obstaclePositions()) {
                 if (position.getX() == checkPosition.getX() && position.getY() == checkPosition.getY())
-                    return true;
-            }
-        }
+                    return true; } }
         return false;
     }
 
@@ -74,8 +70,7 @@ public class MarsRoverImpl implements MarsRover {
         if (action.equals('b') && !obstacle) currentPosition = currentPosition.backward1();
         if (action.equals('s')) {
             LaserBeamImpl laserBeam = this.Shoot(planetMap);
-            laserBeam.moveUntilCrash(planetMap);
-        }
+            laserBeam.moveUntilCrash(planetMap); }
     }
 
     //Si on entre la commande pour avancer ou reculer, renvoie true si un joueur est placé sur la case de destination
@@ -89,7 +84,7 @@ public class MarsRoverImpl implements MarsRover {
     //génère un nouveau missile dans la direction du Rover
     public LaserBeamImpl Shoot(PlanetMap planetMap){
         LaserBeamImpl laserBeam = initLaserBeam();
-        laserBeam.obstaclesDetection(planetMap);//obstacleCollisionCheck(planetMap);
+        laserBeam.obstaclesDetection(planetMap);
         return laserBeam;
     }
 

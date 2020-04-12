@@ -76,13 +76,13 @@ public class ApiControllerTest {
 
     }
 
-    @Test
+    /*@Test
     public void return_status() {
         String join = this.restTemplate.getForObject("/join",String.class);
         String id = join.split("=")[1];
         String body = this.restTemplate.getForObject("/rover/status?id="+id, String.class);
         boolean stat = body.contains("You're still Alive !")||body.contains("You're Dead...");
         assertThat(stat).isEqualTo(true);
-    }
+    }*/
 
 }
