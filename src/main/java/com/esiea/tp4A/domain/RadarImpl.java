@@ -48,16 +48,10 @@ public class RadarImpl {
             for (int x = 0; x < size; x++) {
                 for (Position position : planetMap.obstaclePositions()) {
                     if (checkLimit(startX + x) == position.getX() && checkLimit(startY + y) == position.getY()) {
-                        positions.add(Position.of(checkLimit(startX + x), checkLimit(startY + y), null));
-                    }
-                }
-            }
-        }
+                        positions.add(Position.of(checkLimit(startX + x), checkLimit(startY + y), null)); } } } }
         System.out.println("Listes des obstacles : ");
-        for (Position position : positions)
-            System.out.println("X : " + position.getX() + " | Y : " + position.getY());
-        return positions;
-    }
+        for (Position position : positions) System.out.println("X : " + position.getX() + " | Y : " + position.getY());
+        return positions; }
 
     /*public Set<Position> playerPositions() {
         Set<Position> positions = new HashSet<>();
