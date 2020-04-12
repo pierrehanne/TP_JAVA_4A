@@ -20,6 +20,12 @@ class MarsRoverImplTest {
     }
 
     @Test
+    void isAlive() {
+        MarsRoverImpl marsRover = new MarsRoverImpl(0, 0, Direction.NORTH, new PlanetMapImpl(null));
+        Assertions.assertThat(marsRover.isAlive()).isEqualTo(true);
+    }
+
+    @Test
     void right_direction(){
         PlanetMapImpl planetMap = new PlanetMapImpl(null);
         MarsRover marsRover = new MarsRoverImpl(0, 0, Direction.NORTH, planetMap);
