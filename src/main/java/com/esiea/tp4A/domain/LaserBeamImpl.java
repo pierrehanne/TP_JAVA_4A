@@ -1,5 +1,7 @@
 package com.esiea.tp4A.domain;
 
+import java.util.Iterator;
+
 public class LaserBeamImpl {
 
     private Position currentPosition;
@@ -41,14 +43,14 @@ public class LaserBeamImpl {
     }
 
     public void obstaclesDetection(PlanetMap planetMap) {
-        if(planetMap.obstaclePositions() != null) {
-            for (Position position : planetMap.obstaclePositions()) {
+        if (planetMap.obstaclePositions() != null) {
+            Iterator<Position> iter = planetMap.obstaclePositions().iterator();
+            while (iter.hasNext()) { Position position = iter.next();
                 if (position.getX() == currentPosition.getX() && position.getY() == currentPosition.getY()) {
                     planetMap.obstaclePositions().remove(position);
                     destroyed = true;
                     System.out.println("Destroy : " + destroyed); } }
-            for (Position position : planetMap.obstaclePositions()) { System.out.println("OBSTACLES : X : " + position.getX() + " Y : " + position.getY()); } }
-    }
+            for (Position position : planetMap.obstaclePositions()) { System.out.println("OBSTACLES : X : " + position.getX() + " Y : " + position.getY()); } } }
 
     //vérifier que le laser n'a pas atteint sa portée maximale
     public void rangeCheck(){
