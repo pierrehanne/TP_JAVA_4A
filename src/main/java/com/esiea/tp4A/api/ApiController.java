@@ -7,9 +7,9 @@ import java.util.*;
 @RestController
 public class ApiController {
 
-    Map<Integer, MarsRoverImpl> Playerz = new HashMap<>();
-    Integer Id = (1 + (int)(Math.random() * ((10 - 1) + 1))); // Nombre aléatoire entre 1 et 10
-    PlanetMapImpl planetMap = new PlanetMapImpl(null);
+    private final Map<Integer, MarsRoverImpl> Playerz = new HashMap<>();
+    private final Integer Id = (1 + (int)(Math.random() * ((10 - 1) + 1))); // Nombre aléatoire entre 1 et 10
+    private final PlanetMapImpl planetMap = new PlanetMapImpl(null);
 
     //Permet à un joueur de rejoindre une session et attribut à un user un id
     @GetMapping("/join")
